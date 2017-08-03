@@ -1,0 +1,17 @@
+<div class="home-container">
+    <md-toolbar class="welcome-header">You are in the home of Billing!</md-toolbar>
+    <div class="menu-list">
+        <md-card
+            *ngFor="let category of menuItems.getItemsInCategories()"
+            class="menu-list-card"
+            [routerLink]="['/', category.id]">
+            <md-card-title>{{category.name}}</md-card-title>
+            <p class="menu-list-card-summary">{{category.summary}}</p>
+            <md-card-actions >
+                <button *ngIf="category.default && category.default != ''" [routerLink]="['/', category.id, category.default, 'create']" md-button>{{category.action1label}}</button>
+                <button *ngIf="!category.default" [routerLink]="['/', category.id, 'create']" md-button>{{category.action1label}}</button>
+                <button md-button>{{category.action2label}}</button>
+            </md-card-actions>
+        </md-card>
+    </div>
+</div>

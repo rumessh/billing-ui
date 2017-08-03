@@ -1,0 +1,67 @@
+<div class="order-create-container">
+    <md-card class="order-create-card">
+        <md-card-title>Create Order</md-card-title>
+        <form class="order-create-form" [formGroup]="createOrderForm" (ngSubmit)="onSubmit()">
+            <md-input-container>
+                <input mdInput placeholder="Name" type="text" formControlName="name" placeholder="Name">
+                <md-error *ngIf="createOrderForm.get('name').hasError('required')">
+                    Name is <strong>required</strong>
+                </md-error>
+            </md-input-container>
+            <md-input-container>
+                <input type="text" placeholder="Customer" mdInput formControlName="customer">
+            </md-input-container>
+            <div class="product-search-container">
+                <md-select placeholder="Product Category" formControlName="category">
+                    <md-option *ngFor="let category of categories" [value]="category">{{ category.name }}</md-option>
+                </md-select>
+                <md-input-container>
+                    <input type="text" placeholder="Product Name" mdInput formControlName="productName" [mdAutocomplete]="productNameAuto">
+                </md-input-container>
+                <md-autocomplete #productNameAuto="mdAutocomplete">
+                    <md-option *ngFor="let product of productSuggestionList" [value]="product">
+                        {{ product.name }} : {{ product.hsnCode }}
+                    </md-option>
+                </md-autocomplete>
+                <button type="button" md-button (click)="searchProduct()">Search</button>
+            </div>
+            <md-input-container>
+                <input type="text" placeholder="Notes" mdInput formControlName="purchaseOrderNotes">
+            </md-input-container>
+        </form>
+        <md-table #table [dataSource]="dataSource">
+        <ng-container cdkColumnDef="name">
+            <md-header-cell *cdkHeaderCellDef>Name</md-header-cell>
+            <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
+        </ng-container>
+
+        <ng-container cdkColumnDef="hsnCode">
+            <md-header-cell *cdkHeaderCellDef> HSN Code </md-header-cell>
+            <md-cell *cdkCellDef="let row"> {{row.hsnCode}} </md-cell>
+        </ng-container>
+
+        <ng-container cdkColumnDef="productNumber">
+            <md-header-cell *cdkHeaderCellDef>Product Number</md-header-cell>
+            <md-cell *cdkCellDef="let row"> {{row.productNumber}} </md-cell>
+        </ng-container>
+
+        <ng-container cdkColumnDef="categoryName">
+            <md-header-cell *cdkHeaderCellDef>Category</md-header-cell>
+            <md-cell *cdkCellDef="let row"> {{row.categoryName}} </md-cell>
+        </ng-container>
+
+        <ng-container cdkColumnDef="unitPrice">
+            <md-header-cell *cdkHeaderCellDef>Unit Price</md-header-cell>
+            <md-cell *cdkCellDef="let row"> {{row.unitPrice}} </md-cell>
+        </ng-container>
+
+        <ng-container cdkColumnDef="onHandQuantity">
+            <md-header-cell *cdkHeaderCellDef>On Hand Quantity</md-header-cell>
+            <md-cell *cdkCellDef="let row"> {{row.onHandQuantity}} </md-cell>
+        </ng-container>
+
+        <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
+        <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
+    </md-table>
+    </md-card>
+</div>

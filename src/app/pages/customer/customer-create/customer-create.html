@@ -1,0 +1,24 @@
+<div class="customer-create-container">
+  <md-card class="customer-create-card">
+    <md-card-title>Create Customer</md-card-title>
+    <form class="customer-create-form"
+      [formGroup]="createCustomerForm" (ngSubmit)="onSubmit()">
+      <md-input-container>
+        <input mdInput placeholder="Name" type="text" formControlName="name" placeholder="Name">
+        <md-error *ngIf="createCustomerForm.get('name').hasError('required')">
+          Name is <strong>required</strong>
+        </md-error>
+      </md-input-container>
+      <md-input-container>
+        <input mdInput placeholder="Phone Number" type="phone" formControlName="phone">
+        <md-error *ngIf="createCustomerForm.get('phone').hasError('required')">
+          Phone number is <strong>required</strong>
+        </md-error>
+      </md-input-container>
+      <md-card-actions>
+        <button md-button type="submit">Save</button>
+        <button md-button type="reset" (click)="revert()">Reset</button>
+      </md-card-actions>
+    </form>
+  </md-card>
+</div>

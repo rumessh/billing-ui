@@ -1,0 +1,19 @@
+.order-create-card {
+  display: flex;
+  flex-direction: column;
+
+  .mat-input-container {
+    margin: 5px;
+    width: 95%
+  }
+
+  .product-search-container {
+    .mat-select {
+      width: 30%;
+    }
+    .mat-input-container {
+      width: 40%;
+    }
+  }
+
+}

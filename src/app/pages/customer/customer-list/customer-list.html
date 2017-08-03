@@ -1,0 +1,31 @@
+<div class="customer-list-container mat-elevation-z8">
+    <div class="customer-list-header">
+      <md-input-container floatPlaceholder="never">
+        <input mdInput #filter placeholder="Filter customers; Type a name/phone">
+      </md-input-container>
+    </div>
+    <md-table #table [dataSource]="dataSource">
+
+      <!-- Name Column -->
+      <ng-container cdkColumnDef="name">
+        <md-header-cell *cdkHeaderCellDef> Name </md-header-cell>
+        <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
+      </ng-container>
+
+      <!-- Phone Column -->
+      <ng-container cdkColumnDef="phone">
+        <md-header-cell *cdkHeaderCellDef>Phone</md-header-cell>
+        <md-cell *cdkCellDef="let row"> {{row.phone}} </md-cell>
+      </ng-container>
+
+      <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
+      <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
+    </md-table>
+    <md-paginator #paginator
+                [length]="10"
+                [pageIndex]="0"
+                [pageSize]="2"
+                [pageSizeOptions]="[5, 10]"
+                (page)="pageEvent = $event; onPaginateChange($event)">
+    </md-paginator>
+</div>

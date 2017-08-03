@@ -1,16 +1,30 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {RouterModule} from '@angular/router';
+import {AppRoutes} from './routes';
 
 import { AppComponent } from './app.component';
+import {HomepageModule} from './pages/homepage/homepage';
+import {PageUtil} from './shared/page-util/page-util';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {CustomerModule} from './pages/customer/customer.module';
+import {CatalogModule} from './pages/catalog/catalog.module';
+import {OrderModule} from './pages/order/order-module';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    BrowserAnimationsModule,
+    RouterModule.forRoot(AppRoutes),
+    HomepageModule,
+    CustomerModule,
+    CatalogModule,
+    OrderModule
   ],
-  providers: [],
+  providers: [PageUtil],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

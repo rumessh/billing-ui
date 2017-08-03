@@ -1,0 +1,32 @@
+<page-header (toggleSidenav) = "sidenav.toggle()"></page-header>
+<div class="sidenav-outer">
+  <md-sidenav-container class="sidenav-container">
+    <md-sidenav #sidenav class="sidenav"
+                [opened]="!isScreenSmall()"
+                [mode]="isScreenSmall() ? 'over' : 'side'">
+      <nav *ngFor="let category of menuItems.getItemsInCategories()">
+        <h3>{{category.name}}</h3>
+        <ul>
+          <li *ngFor="let menu of category.items">
+            <a *ngIf="menu.type !== undefined && menu.id != ''" [routerLink]="['/', category.id, menu.id, menu.type]"
+              routerLinkActive="sidenav-item-selected">
+              {{menu.name}}
+            </a>
+            <a *ngIf="menu.type !== undefined && menu.id == ''" [routerLink]="['/', category.id, menu.type]"
+              routerLinkActive="sidenav-item-selected">
+              {{menu.name}}
+            </a>
+            <a *ngIf="menu.type === undefined" [routerLink]="['/', category.id, menu.id]"
+              routerLinkActive="sidenav-item-selected">
+              {{menu.name}}
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </md-sidenav>
+
+    <div class="sidenav-content">
+      <router-outlet></router-outlet>
+    </div>
+  </md-sidenav-container>
+</div>
