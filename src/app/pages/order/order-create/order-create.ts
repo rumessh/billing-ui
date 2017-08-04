@@ -1,14 +1,12 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Order, OrderDataService } from '../order-data/order-data';
 import { Location } from '@angular/common';
-import {MdPaginatorModule, MdInputModule, MdButtonModule, MdTableModule, MdPaginator, PageEvent, MdSnackBar } from '@angular/material';
+import { MdInputModule, MdButtonModule, MdSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Customer, CustomerDataService } from '../../customer/customer-data/customer-data';
-import { Product, Category, CatalogDataService } from '../../catalog/catalog-data/catalog-data';
-import {DataSource} from '@angular/cdk';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { Product } from '../../catalog/catalog-data/catalog-data';
+import { ProductListTable } from '../../catalog/product-list/product-list-table';
 
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -22,46 +20,51 @@ export class OrderCreate {
 
   createOrderForm: FormGroup;
   customer: Customer;
-  categories: Category[];
-  productSuggestionList: Product[];
-  orderedProductList: Product[];
-  dataSource: ProductDataSource;
-  displayedColumns = ['name', 'hsnCode', 'productNumber', 'categoryName', 'unitPrice', 'onHandQuantity'];
+  orderedProductList: Product[] = [];
+  displayedColumns = ['name', 'hsnCode', 'productNumber', 'categoryName'];
+  isSearched = true;
+  isPaginated = false;
+  isFilterRequired = false;
 
-  constructor(private cd: ChangeDetectorRef, 
+  @ViewChild(ProductListTable)
+  private productListTable: ProductListTable;
+
+  constructor(
     private formBuilder: FormBuilder,
     private orderDataService: OrderDataService,
     private location: Location,
     private snackbar: MdSnackBar,
     route: ActivatedRoute,
-    private customerDataService: CustomerDataService,
-    private catalogDataService: CatalogDataService) {
+    private customerDataService: CustomerDataService) {
     let customerId;
     route.parent.params.subscribe((params) => {
       customerId = params.id
     });
-    this.customerDataService.getCustomerData(customerId)
-      .then((customer) => {
-        this.createOrderForm.get('customer').setValue(customer.name);
-        this.customer = customer;
-      });
-    this.catalogDataService.getAllCategories()
-      .then((categories) => this.categories = categories);
+
+    this.buildCreateOrderForm(customerId);
+  }
+
+  buildCreateOrderForm(customerId: String) {
 
     this.createOrderForm = this.formBuilder.group({
       name: ['', Validators.required],
       customer: [{ value: '', disabled: true }, Validators.required],
       category: [''],
-      productName: ['']
+      productName: [''],
+      purchaseOrderNotes: ['']
     });
+
+    this.customerDataService.getCustomerData(customerId)
+      .then((customer) => {
+        this.createOrderForm.get('customer').setValue(customer.name);
+        this.customer = customer;
+      });
+
   }
 
-  ngOnInit() {
-    this.dataSource = new ProductDataSource([]);
-    setTimeout(() => this.cd.markForCheck());
+  productAdded(addedProduct: Product) {
+    this.orderedProductList = [...this.orderedProductList, addedProduct];
   }
-
-
 
   onSubmit() {
     const order = this.prepareSaveOrder();
@@ -71,19 +74,6 @@ export class OrderCreate {
         this.goBack();
       });
     });
-  }
-
-  searchProduct() {
-    this.catalogDataService.searchProduct(this.createOrderForm.get('productName').value)
-      .then((productList) => {
-        productList.length > 1 ? this.productSuggestionList =
-          productList : this.addProductToOrder(productList);
-      });
-  }
-
-  addProductToOrder(productList: Product[]) {
-      this.orderedProductList = this.orderedProductList ? [...this.orderedProductList, ...productList] : productList;
-      this.dataSource = new ProductDataSource(this.orderedProductList);
   }
 
   prepareSaveOrder(): Order {
@@ -109,17 +99,4 @@ export class OrderCreate {
     this.location.back();
   }
 
-}
-
-export class ProductDataSource extends DataSource<any> {
-  constructor(private data: Product[]) {
-    super();
-  }
-
-  /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<any[]> {
-    return Observable.of(this.data);
-  }
-
-  disconnect() {}
 }

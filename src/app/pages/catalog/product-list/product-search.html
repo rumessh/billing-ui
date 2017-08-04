@@ -1,0 +1,28 @@
+<div class="product-search-container">
+    <form [formGroup]="searchProductForm">
+        <md-select placeholder="Product Category" formControlName="category">
+            <md-option *ngFor="let category of categories" [value]="category">{{ category.name }}</md-option>
+        </md-select>
+        <md-input-container>
+            <input type="text" placeholder="Product Name" mdInput formControlName="productName" [mdAutocomplete]="productNameAuto">
+        </md-input-container>
+        <md-autocomplete [displayWith]="productAutoDisplay" #productNameAuto="mdAutocomplete">
+            <md-option (onSelectionChange)="productSelected(product)" *ngFor="let product of productSuggestionList" [value]="product">
+                {{ product.name }} : {{ product.hsnCode }}
+            </md-option>
+        </md-autocomplete>
+        <!--  <md-input-container>
+            <input type="text" placeholder="HSN Code" mdInput formControlName="hsnCode" [displayWith]="productAutoDisplay" [mdAutocomplete]="hsnCodeAuto">
+        </md-input-container>
+        <md-autocomplete #hsnCodeAuto="mdAutocomplete">
+            <md-option *ngFor="let product of productSuggestionList" [value]="product">
+                {{ product.name }} : {{ product.hsnCode }}
+            </md-option> 
+        </md-autocomplete>  -->
+        <md-input-container *ngIf="isAddEnabled">
+            <input type="text" placeholder="Quantity Required" mdInput formControlName="quantityRequested">
+        </md-input-container>
+        <button *ngIf="!isAddEnabled" type="button" md-button (click)="searchProduct()">Search</button>
+        <button *ngIf="isAddEnabled" type="button" md-button (click)="addProduct()">Add</button>
+    </form>
+</div>

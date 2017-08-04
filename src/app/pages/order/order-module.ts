@@ -7,6 +7,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common'; 
 import {RouterModule} from '@angular/router';
 import {CdkTableModule} from '@angular/cdk';
+import {CatalogModule} from '../catalog/catalog.module';
 
 @NgModule({
     imports: [
@@ -20,7 +21,8 @@ import {CdkTableModule} from '@angular/cdk';
       CommonModule,
       RouterModule,
       MdAutocompleteModule,
-      CdkTableModule
+      CdkTableModule,
+      CatalogModule
     ],
     declarations: [OrderCreate],
     providers: [PageUtil, OrderDataService]

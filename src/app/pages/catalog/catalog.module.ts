@@ -12,6 +12,8 @@ import {CatalogDataService} from './catalog-data/catalog-data';
 import {ProductList} from './product-list/product-list';
 import {CategoryCreate} from './category-create/category-create';
 import {ProductCreate} from './product-create/product-create';
+import {ProductListTable} from './product-list/product-list-table';
+import {ProductSearch} from './product-list/product-search';
 
 @NgModule({
   imports: [
@@ -29,8 +31,8 @@ import {ProductCreate} from './product-create/product-create';
       RouterModule,
       MdAutocompleteModule
     ],
-  exports: [ProductList],
-  declarations: [ProductList, CategoryCreate, ProductCreate],
+  exports: [ProductList, CategoryCreate, ProductCreate, ProductListTable, ProductSearch],
+  declarations: [ProductList, CategoryCreate, ProductCreate, ProductListTable, ProductSearch],
   providers: [PageUtil, CatalogDataService]
 })
 export class CatalogModule {}

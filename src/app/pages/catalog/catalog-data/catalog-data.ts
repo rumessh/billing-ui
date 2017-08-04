@@ -15,7 +15,8 @@ export interface Product {
     onHandQuantity: number,
     categoryUuid: String,
     orgUuid: String,
-    keywords?: String[]
+    keywords?: String[],
+    quantityRequested?:number
 }
 
 export interface Category {
