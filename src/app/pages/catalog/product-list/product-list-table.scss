@@ -1,3 +1,5 @@
+@import '../../../../styles/constants';
+
 .product-list-header {
   min-height: 64px;
   display: flex;
@@ -5,4 +7,28 @@
   padding: 8px 24px 0;
   font-size: 20px;
   justify-content: space-between;
+}
+
+.product-list-table-wrapper {
+  overflow: auto;
+
+  .mat-table {
+    min-width: 500px;
+    margin-bottom: 4px;
+  }
+
+}
+
+.suffix-container {
+  
+  position: relative;
+  display: inline-block;
+  
+  .mat-icon {
+    @include suffix-icon-size(19px);
+    position: absolute;
+    left: 18px;
+    top: -16px;
+  }
+  
 }

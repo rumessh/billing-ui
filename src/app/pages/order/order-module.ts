@@ -22,7 +22,7 @@ import {CatalogModule} from '../catalog/catalog.module';
       RouterModule,
       MdAutocompleteModule,
       CdkTableModule,
-      CatalogModule
+      CatalogModule,
     ],
     declarations: [OrderCreate],
     providers: [PageUtil, OrderDataService]

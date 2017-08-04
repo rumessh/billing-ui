@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {MaterialModule, MdPaginatorModule, MdInputModule, MdButtonModule, MdTableModule, MdPaginator, PageEvent, MdAutocompleteModule } from '@angular/material';
+import {MaterialModule, MdPaginatorModule, MdInputModule, MdButtonModule, MdTableModule, MdPaginator, PageEvent, MdAutocompleteModule, MdDialogModule } from '@angular/material';
 import {PageUtil} from '../../shared/page-util/page-util';
 import {SideNavModule} from '../../shared/sidenav/sidenav';
 import {CdkTableModule} from '@angular/cdk';
@@ -14,6 +14,7 @@ import {CategoryCreate} from './category-create/category-create';
 import {ProductCreate} from './product-create/product-create';
 import {ProductListTable} from './product-list/product-list-table';
 import {ProductSearch} from './product-list/product-search';
+import {QuantityDialog} from './product-list/quantity-dialog';
 
 @NgModule({
   imports: [
@@ -29,10 +30,12 @@ import {ProductSearch} from './product-list/product-search';
       ReactiveFormsModule,
       CommonModule,
       RouterModule,
-      MdAutocompleteModule
+      MdAutocompleteModule,
+      MdDialogModule
     ],
-  exports: [ProductList, CategoryCreate, ProductCreate, ProductListTable, ProductSearch],
-  declarations: [ProductList, CategoryCreate, ProductCreate, ProductListTable, ProductSearch],
+  exports: [ProductList, CategoryCreate, ProductCreate, ProductListTable, ProductSearch, QuantityDialog],
+  declarations: [ProductList, CategoryCreate, ProductCreate, ProductListTable, ProductSearch, QuantityDialog],
+  entryComponents: [QuantityDialog],
   providers: [PageUtil, CatalogDataService]
 })
 export class CatalogModule {}

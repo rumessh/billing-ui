@@ -1,5 +1,19 @@
+@import '../../../../styles/constants';
+
 .product-search-container {
     .mat-select, .mat-input-container {
         width: 25%;
+    }
+
+    @media (max-width: $small-breakpoint-width) {
+        display: flex;
+        flex-direction: column;
+        .mat-select, .mat-input-container {
+            width: 95%;
+            margin: 5px;
+        }
+        .mat-select {
+            padding-bottom: 1.2em;
+        }
     }
 }

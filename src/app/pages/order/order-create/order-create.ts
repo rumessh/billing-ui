@@ -21,7 +21,7 @@ export class OrderCreate {
   createOrderForm: FormGroup;
   customer: Customer;
   orderedProductList: Product[] = [];
-  displayedColumns = ['name', 'hsnCode', 'productNumber', 'categoryName'];
+  displayedColumns = ['name', 'quantityRequested', 'hsnCode', 'productNumber', 'categoryName'];
   isSearched = true;
   isPaginated = false;
   isFilterRequired = false;

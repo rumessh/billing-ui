@@ -20,8 +20,12 @@
             </md-option> 
         </md-autocomplete>  -->
         <md-input-container *ngIf="isAddEnabled">
-            <input type="text" placeholder="Quantity Required" mdInput formControlName="quantityRequested">
+            <input type="text" placeholder="Quantity Required" required mdInput formControlName="quantityRequested">
+            <md-error *ngIf="searchProductForm.get('quantityRequested').hasError('required')">
+                Unit price is <strong>required</strong>
+            </md-error>
         </md-input-container>
+
         <button *ngIf="!isAddEnabled" type="button" md-button (click)="searchProduct()">Search</button>
         <button *ngIf="isAddEnabled" type="button" md-button (click)="addProduct()">Add</button>
     </form>

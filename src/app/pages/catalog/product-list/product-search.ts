@@ -32,9 +32,11 @@ export class ProductSearch {
     }
 
     addProduct() {
-        this.selectedProduct.quantityRequested = this.searchProductForm.get('quantityRequested').value;
-        this.productAdded.emit(this.selectedProduct);
-        this.searchProductForm.reset();
+        if(this.searchProductForm.valid) {
+            this.selectedProduct.quantityRequested = this.searchProductForm.get('quantityRequested').value;
+            this.productAdded.emit(this.selectedProduct);
+            this.searchProductForm.reset();
+        }
     }
 
     productSelected(selectedProduct: Product) {

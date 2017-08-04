@@ -1,1 +1,8 @@
 $small-breakpoint-width: 840px;
+
+@mixin suffix-icon-size($size) {
+  font-size: $size;
+  width: $size;
+  height: $size;
+  cursor: pointer;
+}

@@ -1,8 +1,9 @@
 import { Component, AfterViewInit, ChangeDetectorRef, ViewChild, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { MdPaginatorModule, MdInputModule, MdTableModule, MdPaginator } from '@angular/material';
+import { MdPaginatorModule, MdInputModule, MdTableModule, MdPaginator, MdDialog, MdDialogRef } from '@angular/material';
 import { DataSource } from '@angular/cdk';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import {QuantityDialog} from './quantity-dialog';
 
 import { CatalogDataService, Product } from '../catalog-data/catalog-data';
 
@@ -21,7 +22,8 @@ export class ProductListTable implements OnChanges {
     dataSource: ProductDataSource | null;
 
     constructor(private cd: ChangeDetectorRef,
-        private catalogDataService: CatalogDataService) { }
+        private catalogDataService: CatalogDataService,
+        public dialog: MdDialog) { }
 
     @ViewChild(MdPaginator) paginator: MdPaginator;
     @ViewChild("filter") filter: ElementRef;
@@ -46,6 +48,13 @@ export class ProductListTable implements OnChanges {
 
     getSearchData(): Product[] {
         return this.searchData;
+    }
+
+    updateQuantity(row: Product) {
+        let dialogRef = this.dialog.open(QuantityDialog);
+        dialogRef.afterClosed().subscribe(result => {
+            result ? row.quantityRequested = result : row.quantityRequested;
+        });
     }
 }
 

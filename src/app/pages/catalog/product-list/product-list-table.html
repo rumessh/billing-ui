@@ -3,39 +3,50 @@
         <input mdInput #filter placeholder="Filter products">
     </md-input-container>
 </div>
-<md-table #table [dataSource]="dataSource">
-    <ng-container cdkColumnDef="name">
-        <md-header-cell *cdkHeaderCellDef>Name</md-header-cell>
-        <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
-    </ng-container>
+<div class="product-list-table-wrapper">
+    <md-table #table [dataSource]="dataSource">
+        <ng-container cdkColumnDef="name">
+            <md-header-cell *cdkHeaderCellDef>Name</md-header-cell>
+            <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
+        </ng-container>
 
-    <ng-container cdkColumnDef="hsnCode">
-        <md-header-cell *cdkHeaderCellDef> HSN Code </md-header-cell>
-        <md-cell *cdkCellDef="let row"> {{row.hsnCode}} </md-cell>
-    </ng-container>
+        <ng-container cdkColumnDef="quantityRequested">
+            <md-header-cell *cdkHeaderCellDef> Quantity Requested </md-header-cell>
+            <md-cell *cdkCellDef="let row"> {{row.quantityRequested}}
+                <div class="suffix-container">
+                    <md-icon (click)="updateQuantity(row)">mode_edit</md-icon>
+                </div>
+            </md-cell>
+        </ng-container>
 
-    <ng-container cdkColumnDef="productNumber">
-        <md-header-cell *cdkHeaderCellDef>Product Number</md-header-cell>
-        <md-cell *cdkCellDef="let row"> {{row.productNumber}} </md-cell>
-    </ng-container>
+        <ng-container cdkColumnDef="hsnCode">
+            <md-header-cell *cdkHeaderCellDef> HSN Code </md-header-cell>
+            <md-cell *cdkCellDef="let row"> {{row.hsnCode}} </md-cell>
+        </ng-container>
 
-    <ng-container cdkColumnDef="categoryName">
-        <md-header-cell *cdkHeaderCellDef>Category</md-header-cell>
-        <md-cell *cdkCellDef="let row"> {{row.categoryName}} </md-cell>
-    </ng-container>
+        <ng-container cdkColumnDef="productNumber">
+            <md-header-cell *cdkHeaderCellDef>Product Number</md-header-cell>
+            <md-cell *cdkCellDef="let row"> {{row.productNumber}} </md-cell>
+        </ng-container>
 
-    <ng-container cdkColumnDef="unitPrice">
-        <md-header-cell *cdkHeaderCellDef>Unit Price</md-header-cell>
-        <md-cell *cdkCellDef="let row"> {{row.unitPrice}} </md-cell>
-    </ng-container>
+        <ng-container cdkColumnDef="categoryName">
+            <md-header-cell *cdkHeaderCellDef>Category</md-header-cell>
+            <md-cell *cdkCellDef="let row"> {{row.categoryName}} </md-cell>
+        </ng-container>
 
-    <ng-container cdkColumnDef="onHandQuantity">
-        <md-header-cell *cdkHeaderCellDef>On Hand Quantity</md-header-cell>
-        <md-cell *cdkCellDef="let row"> {{row.onHandQuantity}} </md-cell>
-    </ng-container>
+        <ng-container cdkColumnDef="unitPrice">
+            <md-header-cell *cdkHeaderCellDef>Unit Price</md-header-cell>
+            <md-cell *cdkCellDef="let row"> {{row.unitPrice}} </md-cell>
+        </ng-container>
 
-    <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
-    <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
-</md-table>
+        <ng-container cdkColumnDef="onHandQuantity">
+            <md-header-cell *cdkHeaderCellDef>On Hand Quantity</md-header-cell>
+            <md-cell *cdkCellDef="let row"> {{row.onHandQuantity}} </md-cell>
+        </ng-container>
+
+        <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
+        <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
+    </md-table>
+</div>
 <md-paginator *ngIf="isPaginated" #paginator [length]="10" [pageIndex]="0" [pageSize]="2" [pageSizeOptions]="[5, 10]" (page)="pageEvent = $event; onPaginateChange($event)">
 </md-paginator>
