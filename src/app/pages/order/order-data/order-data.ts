@@ -3,16 +3,23 @@ import { Http, Response, RequestOptions, Headers, Request, RequestMethod } from 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import { Product } from '../../catalog/catalog-data/catalog-data';
+import {AuthService} from '../../../shared/auth-service/auth-service';
+import { Customer } from '../../customer/customer-data/customer-data';
+
 
 export interface Order {
-    purchaseOrderUuid?: String,
-    purchaseOrderName: String,
+    orderUuid?: String,
+    orderName?: String,
     createdDate?: String,
     userUuid?: String,
     customerUuid: String,
     orgUuid: String,
     status: String,
-    purchaseOrderNotes?: String
+    orderNotes?: String,
+    orderLineItems: Product[],
+    neededByDate: String,
+    customer?: Customer
 }
 
 
@@ -20,14 +27,23 @@ let headers = new Headers({ 'Content-Type': 'application/json' });
 
 export class OrderDataPaginated {
 
-    private url = 'http://localhost:8081/billing/org/cb84016e-73d9-11e7-8a46-1db42fcd78ef/orderapi/v1/orders';
+    private url = 'http://localhost:8081/billing/org/'+ this.authService.getOrgUuid() +'/orderapi/v1/orders';
     totalCount: any;
+
+    getOrderByUuid(orderUuid: String):Promise<Order> {
+        const url = 'http://localhost:8081/billing/org/'+ this.authService.getOrgUuid() +'/orderapi/v1/order/'+orderUuid;
+        return this.http
+            .get(url, {headers: headers})
+            .toPromise()
+            .then((response: Response) => Promise.resolve(response.json()))
+            .catch((error: any) => Promise.reject(error.message || error));
+    }
 
     getOrderList(start, size): Observable<Order[]> {
         var requestoptions = new RequestOptions({
             method: RequestMethod.Get,
             url: this.url,
-            headers: headers,
+            headers: new Headers({'Content-Type': 'application/json' , 'userUuid': 'b6d6eea0-7a5c-11e7-8718-d9a4a860e55c'}),
             params: {
                 "start": start,
                 "size": size
@@ -47,7 +63,7 @@ export class OrderDataPaginated {
     }
 
     createOrder(order: Order): Promise<Order> {
-        const url = 'http://localhost:8081/billing/org/cb84016e-73d9-11e7-8a46-1db42fcd78ef/orderapi/v1/order';
+        const url = 'http://localhost:8081/billing/org/'+ this.authService.getOrgUuid() +'/orderapi/v1/order';
         return this.http
             .post(url, JSON.stringify(order), { headers: headers })
             .toPromise()
@@ -55,7 +71,7 @@ export class OrderDataPaginated {
             .catch((error: any) => Promise.reject(error.message || error));
     }
 
-    constructor(private http: Http) { }
+    constructor(private http: Http, private authService: AuthService) { }
 }
 
 @Injectable()
@@ -71,7 +87,11 @@ export class OrderDataService {
         return this.orderDataPaginated.createOrder(order);
     }
 
-    constructor(private http: Http) {
-        this.orderDataPaginated = new OrderDataPaginated(http);
+    getOrderByUuid(orderUuid: String): Promise<Order> {
+        return this.orderDataPaginated.getOrderByUuid(orderUuid);
+    }
+
+    constructor(private http: Http, private authService: AuthService) {
+        this.orderDataPaginated = new OrderDataPaginated(http, authService);
     }
 }

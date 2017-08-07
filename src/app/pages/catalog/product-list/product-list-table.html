@@ -5,9 +5,15 @@
 </div>
 <div class="product-list-table-wrapper">
     <md-table #table [dataSource]="dataSource">
+        <ng-container cdkColumnDef="delete">
+            <md-header-cell *cdkHeaderCellDef></md-header-cell>
+            <md-cell *cdkCellDef="let row">
+                <md-icon (click)="deleteProduct(row)">delete</md-icon>
+            </md-cell>
+        </ng-container>
         <ng-container cdkColumnDef="name">
             <md-header-cell *cdkHeaderCellDef>Name</md-header-cell>
-            <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
+            <md-cell *cdkCellDef="let row"> {{row.name}}</md-cell>
         </ng-container>
 
         <ng-container cdkColumnDef="quantityRequested">
@@ -47,6 +53,18 @@
         <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
         <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
     </md-table>
+    <table class="total-table">
+        <thead class="mat-header-row">
+            <th class="mat-header-cell">Total Discount</th>
+            <th class="mat-header-cell">Total Price</th>
+        </thead>
+        <tbody>
+            <tr class="mat-row">
+                <td class="mat-cell">{{dataSource.totalDiscount}}</td>
+                <td class="mat-cell">{{dataSource.totalEstimatedPrice}}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 <md-paginator *ngIf="isPaginated" #paginator [length]="10" [pageIndex]="0" [pageSize]="2" [pageSizeOptions]="[5, 10]" (page)="pageEvent = $event; onPaginateChange($event)">
 </md-paginator>

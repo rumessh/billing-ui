@@ -3,9 +3,10 @@ import {Http, Response, RequestOptions, Headers, Request, RequestMethod} from '@
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import {AuthService} from '../../../shared/auth-service/auth-service';
 
 export interface Customer {
-    id?: String;
+    customerUuid?: String;
     name: String;
     phone: String;
     orgUuid: String;
@@ -14,7 +15,7 @@ export interface Customer {
 
 export class CustomerDataPaginated {
     
-    private url = 'http://localhost:8081/billing/org/cb84016e-73d9-11e7-8a46-1db42fcd78ef/customerapi/v1/customers';
+    private url = 'http://localhost:8081/billing/org/'+ this.authService.getOrgUuid() +'/customerapi/v1/customers';
     totalCount : any ;
     
     getCustomerList(start,size): Observable<any> {
@@ -37,7 +38,7 @@ export class CustomerDataPaginated {
         return result.json();
     }
 
-    constructor(private http: Http) {}
+    constructor(private http: Http, private authService: AuthService) {}
 }
 
 @Injectable()
@@ -47,7 +48,7 @@ export class CustomerDataService {
     customerDataPaginated : CustomerDataPaginated | null;
 
 getCustomerData(customerId: String) : Promise<Customer> {
-        const url = 'http://localhost:8081/billing/org/cb84016e-73d9-11e7-8a46-1db42fcd78ef/customerapi/v1/customer/' + customerId;
+        const url = 'http://localhost:8081/billing/org/'+ this.authService.getOrgUuid() +'/customerapi/v1/customer/' + customerId;
         return this.http
             .get(url, {headers: this.headers})
             .toPromise()
@@ -56,12 +57,12 @@ getCustomerData(customerId: String) : Promise<Customer> {
     }
 
     getCustomerPagenated(start: number, size: number): Observable<Customer[]> {
-        this.customerDataPaginated = new CustomerDataPaginated(this.http);
+        this.customerDataPaginated = new CustomerDataPaginated(this.http, this.authService);
         return this.customerDataPaginated.getCustomerList(start, size);
     }
     
     createCustomer(customer: Customer): Promise<Customer> {
-    const url = 'http://localhost:8081/billing/org/cb84016e-73d9-11e7-8a46-1db42fcd78ef/customerapi/v1/customer';
+    const url = 'http://localhost:8081/billing/org/'+ this.authService.getOrgUuid() +'/customerapi/v1/customer';
     return this.http
       .post(url, JSON.stringify(customer), {headers: this.headers})
       .toPromise()
@@ -74,5 +75,5 @@ getCustomerData(customerId: String) : Promise<Customer> {
         return Promise.reject(error.message || error);
     }
 
-    constructor(private http: Http) {}
+    constructor(private http: Http, private authService: AuthService) {}
 }

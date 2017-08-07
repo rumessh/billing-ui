@@ -3,7 +3,7 @@ import { MdPaginatorModule, MdInputModule, MdTableModule, MdPaginator, MdDialog,
 import { DataSource } from '@angular/cdk';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
-import {QuantityDialog} from './quantity-dialog';
+import { QuantityDialog } from './quantity-dialog';
 
 import { CatalogDataService, Product } from '../catalog-data/catalog-data';
 
@@ -19,7 +19,9 @@ export class ProductListTable implements OnChanges {
     @Input() searchData: Product[];
     @Input() isPaginated: boolean;
     @Input() isFilterRequired: boolean;
+    @Input() isTemproraryDelete: boolean;
     dataSource: ProductDataSource | null;
+    totalEstimatedPrice: number;
 
     constructor(private cd: ChangeDetectorRef,
         private catalogDataService: CatalogDataService,
@@ -52,13 +54,31 @@ export class ProductListTable implements OnChanges {
 
     updateQuantity(row: Product) {
         let dialogRef = this.dialog.open(QuantityDialog);
+        dialogRef.componentInstance.previousQuantity = row.quantityRequested;
         dialogRef.afterClosed().subscribe(result => {
             result ? row.quantityRequested = result : row.quantityRequested;
         });
     }
+
+    deleteProduct(row: Product) {
+        if (this.isTemproraryDelete) {
+            for (let i = 0; i < this.searchData.length; i++) {
+                if (this.searchData[i].productUuid === row.productUuid) {
+                    this.searchData.splice(i, 1);
+                }
+            }
+            this.dataSource = new ProductDataSource(this.paginator, this.catalogDataService, this.isSearched, this.searchData);
+        }
+        else {
+            //TODO: Handle server side product delete.
+        }
+    }
 }
 
 export class ProductDataSource extends DataSource<any> {
+    
+    totalEstimatedPrice: number;
+    
     constructor(private _paginator: MdPaginator,
         private catalogDataService: CatalogDataService,
         private isSearched: boolean,
@@ -68,6 +88,9 @@ export class ProductDataSource extends DataSource<any> {
 
     connect(): Observable<any[]> {
         if (this.isSearched) {
+            this.totalEstimatedPrice = this.searchData.length > 0 ? this.searchData.reduce((total, product) => {
+                return total + (product['unitPrice'] * product['quantityRequested']);
+            }, 0) : 0;
             return Observable.of(this.searchData);
         }
         else {

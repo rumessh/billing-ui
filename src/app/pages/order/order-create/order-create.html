@@ -2,21 +2,29 @@
     <md-card class="order-create-card">
         <md-card-title>Create Order</md-card-title>
         <form class="order-create-form" [formGroup]="createOrderForm" (ngSubmit)="onSubmit()">
-            <md-input-container>
-                <input mdInput placeholder="Name" type="text" formControlName="name" placeholder="Name">
-                <md-error *ngIf="createOrderForm.get('name').hasError('required')">
-                    Name is <strong>required</strong>
-                </md-error>
-            </md-input-container>
-            <md-input-container>
-                <input type="text" placeholder="Customer" mdInput formControlName="customer">
-            </md-input-container>
+            <div class="order-create-top-section">
+                <md-input-container>
+                    <input type="text" placeholder="Customer" mdInput formControlName="customer">
+                </md-input-container>
+                <md-input-container>
+                    <input mdInput placeholder="Needed By Date" [mdDatepicker]="datePicker" formControlName="neededByDate" />
+                    <button mdSuffix [mdDatepickerToggle]="datePicker"></button>
+                    <md-error *ngIf="createOrderForm.get('neededByDate').hasError('required')">
+                        Needed by date is <strong>required</strong>
+                    </md-error>
+                </md-input-container>
+                <md-datepicker #datePicker></md-datepicker>
+            </div>
             <product-search [isAddEnabled]="true" (productAdded)="productAdded($event)"></product-search>
+            <product-list-table *ngIf="orderedProductList.length > 0" [displayedColumns]="displayedColumns" [isSearched]="isSearched" [isPaginated]="isPaginated" [searchData]="orderedProductList"
+                [isFilterRequired]="isFilterRequired" [isTemproraryDelete]="true"></product-list-table>
             <md-input-container>
-                <textarea type="textarea" placeholder="Notes" mdInput formControlName="purchaseOrderNotes"></textarea>
+                <textarea type="textarea" placeholder="Notes" mdInput formControlName="orderNotes"></textarea>
             </md-input-container>
+            <md-card-actions>
+                <button md-button [disabled]="orderedProductList.length < 1" type="submit">Save</button>
+                <button md-button type="reset" (click)="revert()">Reset</button>
+            </md-card-actions>
         </form>
-        <product-list-table [displayedColumns]="displayedColumns" [isSearched]="isSearched" [isPaginated]="isPaginated" [searchData]="orderedProductList"
-            [isFilterRequired]="isFilterRequired"></product-list-table>
     </md-card>
 </div>

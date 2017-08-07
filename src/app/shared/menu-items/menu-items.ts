@@ -27,19 +27,19 @@ const MENUS = [
   },
   {
     id: 'orders',
-    name: 'Purchase Orders',
+    name: 'Sale Orders',
     summary: 'View all the order placed or create an order',
     action1label: 'CREATE ORDER',
     action2label: 'VIEW ORDERS',
     items: [
-        {id: '', name: 'Create a purchase order', type: 'create'},
-        {id: '', name: 'List all purchase orders'}
+        {id: '', name: 'Create a sale order', type: 'create'},
+        {id: '', name: 'List all sale orders'}
     ]
   },
   {
     id: 'invoices',
     name: 'Invoices',
-    summary: 'View invoices created for the purchase orders or create an invoice',
+    summary: 'View invoices created for sale orders or create an invoice',
     action1label: 'CREATE INVOICE',
     action2label: 'VIEW INVOICES',
     items:  [

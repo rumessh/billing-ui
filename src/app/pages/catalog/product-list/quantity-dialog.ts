@@ -7,12 +7,11 @@ import { MdInputModule, MdDialog, MdDialogRef } from '@angular/material';
     '<div md-dialog-content><md-input-container><input type="number" mdInput [(ngModel)]="quantity"/></md-input-container></div>' +
     '<div md-dialog-actions>' +
     '  <button md-button md-dialog-close={{quantity}}>Save</button>' +
-    '  <button md-button md-dialog-close>Cancel</button>' +
+    '  <button md-button md-dialog-close={{previousQuantity}}>Cancel</button>' +
     '</div>',
 })
 export class QuantityDialog {
     previousQuantity: Number;
     constructor(public dialogRef: MdDialogRef<QuantityDialog>) {
-        this.previousQuantity = 12;
     }
 }

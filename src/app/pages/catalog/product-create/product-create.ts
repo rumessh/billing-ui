@@ -4,6 +4,7 @@ import { Product, CatalogDataService, Category } from '../catalog-data/catalog-d
 import { Location } from '@angular/common';
 import { MdSnackBar } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
+import {AuthService} from '../../../shared/auth-service/auth-service';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
@@ -26,7 +27,8 @@ export class ProductCreate {
     constructor(private formBuilder: FormBuilder,
         private catalogDataService: CatalogDataService,
         private location: Location,
-        private snackbar: MdSnackBar) {
+        private snackbar: MdSnackBar,
+        private authService: AuthService) {
         this.catalogDataService.getAllCategories().then((categories) => {
             this.categories = categories;
         });
@@ -76,7 +78,7 @@ export class ProductCreate {
             name: formModel.name,
             categoryName: formModel.category.name,
             categoryUuid: formModel.category.categoryUuid,
-            orgUuid: 'cb84016e-73d9-11e7-8a46-1db42fcd78ef',
+            orgUuid: this.authService.getOrgUuid(),
             productDescription: formModel.description,
             hsnCode: formModel.hsnCode,
             productNumber: formModel.productNumber,

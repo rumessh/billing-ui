@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {CustomerModule} from './pages/customer/customer.module';
 import {CatalogModule} from './pages/catalog/catalog.module';
 import {OrderModule} from './pages/order/order-module';
+import {AuthService} from './shared/auth-service/auth-service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import {OrderModule} from './pages/order/order-module';
     CatalogModule,
     OrderModule
   ],
-  providers: [PageUtil],
+  providers: [PageUtil, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

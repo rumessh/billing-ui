@@ -3,6 +3,7 @@ import { Http, Response, RequestOptions, Headers, Request, RequestMethod } from 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import { AuthService } from '../../../shared/auth-service/auth-service';
 
 export interface Product {
     productUuid?: String,
@@ -29,11 +30,11 @@ let headers = new Headers({ 'Content-Type': 'application/json' });
 
 export class ProductDataPaginated {
 
-    private url = 'http://localhost:8081/billing/org/cb84016e-73d9-11e7-8a46-1db42fcd78ef/productapi/v1/products';
+    private url = 'http://localhost:8081/billing/org/'+ this.authService.getOrgUuid() +'/productapi/v1/products';
     totalCount: any;
 
     searchProduct(productName: String): Promise<Product[]> {
-        const url = 'http://localhost:8081/billing/org/cb84016e-73d9-11e7-8a46-1db42fcd78ef/productapi/v1/products?productName='+productName;
+        const url = 'http://localhost:8081/billing/org/'+ this.authService.getOrgUuid() +'/productapi/v1/products?productName='+productName;
         return this.http
             .get(url, {headers: headers})
             .toPromise()
@@ -65,7 +66,7 @@ export class ProductDataPaginated {
     }
 
     createProduct(product: Product): Promise<Product> {
-        const url = 'http://localhost:8081/billing/org/cb84016e-73d9-11e7-8a46-1db42fcd78ef/productapi/v1/product';
+        const url = 'http://localhost:8081/billing/org/'+ this.authService.getOrgUuid() +'/productapi/v1/product';
         return this.http
             .post(url, JSON.stringify(product), { headers: headers })
             .toPromise()
@@ -73,14 +74,14 @@ export class ProductDataPaginated {
             .catch((error: any) => Promise.reject(error.message || error));
     }
 
-    constructor(private http: Http) { }
+    constructor(private http: Http, private authService: AuthService) { }
 }
 
 export class ProductCategoryData {
 
     createCategory(category: Category): Promise<Category> {
 
-        const url = 'http://localhost:8081/billing/org/cb84016e-73d9-11e7-8a46-1db42fcd78ef/categoryapi/v1/category';
+        const url = 'http://localhost:8081/billing/org/'+ this.authService.getOrgUuid() +'/categoryapi/v1/category';
         return this.http
             .post(url, JSON.stringify(category), { headers: headers })
             .toPromise()
@@ -89,7 +90,7 @@ export class ProductCategoryData {
     }
     
     getAllCategories() : Promise<Category[]> {
-        const url = 'http://localhost:8081/billing/org/cb84016e-73d9-11e7-8a46-1db42fcd78ef/categoryapi/v1/categories';
+        const url = 'http://localhost:8081/billing/org/'+ this.authService.getOrgUuid() +'/categoryapi/v1/categories';
         return this.http
             .get(url, {headers: headers})
             .toPromise()
@@ -97,7 +98,7 @@ export class ProductCategoryData {
             .catch((error: any) => Promise.reject(error.message || error));
     }
 
-    constructor(private http: Http) { }
+    constructor(private http: Http, private authService: AuthService) { }
 }
 
 @Injectable()
@@ -126,8 +127,8 @@ export class CatalogDataService {
         return this.productDataPaginated.searchProduct(productName);
     }
 
-    constructor(private http: Http) {
-        this.productDataPaginated = new ProductDataPaginated(http);
-        this.productCategoryData = new ProductCategoryData(http);
+    constructor(private http: Http, authService: AuthService) {
+        this.productDataPaginated = new ProductDataPaginated(http, authService);
+        this.productCategoryData = new ProductCategoryData(http, authService);
     }
 }

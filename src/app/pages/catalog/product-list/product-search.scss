@@ -2,7 +2,8 @@
 
 .product-search-container {
     .mat-select, .mat-input-container {
-        width: 25%;
+        width: 24%;
+        margin-right: 10px;
     }
 
     @media (max-width: $small-breakpoint-width) {

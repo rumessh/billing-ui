@@ -7,6 +7,8 @@ import { ProductList } from './pages/catalog/product-list/product-list';
 import { CategoryCreate } from './pages/catalog/category-create/category-create';
 import { ProductCreate } from './pages/catalog/product-create/product-create';
 import { OrderCreate } from './pages/order/order-create/order-create';
+import { OrderList } from './pages/order/order-list/order-list';
+import {OrderDetail} from './pages/order/order-detail/order-detail';
 
 export const AppRoutes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -51,10 +53,21 @@ export const AppRoutes: Routes = [
         path: 'orders',
         component: SideNav,
         children: [
-            { path: 'create', component: OrderCreate }
-            //{path: '', component: OrderList, pathMatch: 'full'},
+            { path: 'create', component: OrderCreate },
+            {path: '', component: OrderList, pathMatch: 'full'}
             //{path: 'order/:id', component: OrderDetail, pathMatch: 'full'}
         ]
+    },
+    {
+        path: 'order',
+        component: SideNav,
+        children: [
+            {path: ':id', component: OrderDetail }
+        ]
+    },
+    {
+        path: 'orders/',
+        redirectTo: '/orders'
     },
     /* {
       path: 'customers',

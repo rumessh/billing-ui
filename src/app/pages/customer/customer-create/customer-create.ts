@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Customer, CustomerDataService} from '../customer-data/customer-data';
 import { Location } from '@angular/common';
 import {MdSnackBar} from '@angular/material';
+import {AuthService} from '../../../shared/auth-service/auth-service';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
@@ -18,7 +19,8 @@ export class CustomerCreate {
   constructor(private formBuilder: FormBuilder,
               private customerDataService: CustomerDataService,
               private location: Location,
-              private snackbar: MdSnackBar) {   
+              private snackbar: MdSnackBar,
+              private authService: AuthService) {   
       this.createCustomerForm = this.formBuilder.group( {
             name: [ '', Validators.required ],
             phone: [ '', Validators.required ]
@@ -41,7 +43,7 @@ export class CustomerCreate {
     const customer: Customer = {
       name: formModel.name,
       phone: formModel.phone,
-      orgUuid: 'cb84016e-73d9-11e7-8a46-1db42fcd78ef'
+      orgUuid: this.authService.getOrgUuid()
     };
 
     return customer;
