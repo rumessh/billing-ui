@@ -25,6 +25,15 @@
             </md-cell>
         </ng-container>
 
+        <ng-container cdkColumnDef="invoicedQuantity">
+            <md-header-cell *cdkHeaderCellDef> Invoiced Quantity </md-header-cell>
+            <md-cell *cdkCellDef="let row"> {{row.invoicedQuantity}}
+                <div class="suffix-container">
+                    <md-icon (click)="updateQuantity(row)">mode_edit</md-icon>
+                </div>
+            </md-cell>
+        </ng-container>
+
         <ng-container cdkColumnDef="hsnCode">
             <md-header-cell *cdkHeaderCellDef> HSN Code </md-header-cell>
             <md-cell *cdkCellDef="let row"> {{row.hsnCode}} </md-cell>
@@ -47,7 +56,27 @@
 
         <ng-container cdkColumnDef="onHandQuantity">
             <md-header-cell *cdkHeaderCellDef>On Hand Quantity</md-header-cell>
-            <md-cell *cdkCellDef="let row"> {{row.onHandQuantity}} </md-cell>
+            <md-cell *cdkCellDef="let row"> {{row.onHandQuantity}}</md-cell>
+        </ng-container>
+
+        <ng-container cdkColumnDef="tax">
+            <md-header-cell *cdkHeaderCellDef>Tax</md-header-cell>
+            <md-cell *cdkCellDef="let row"> {{row.taxAmount}} </md-cell>
+        </ng-container>
+
+        <ng-container cdkColumnDef="discount">
+            <md-header-cell *cdkHeaderCellDef>Discount</md-header-cell>
+            <md-cell *cdkCellDef="let row"> {{row.discount}}
+                <div class="suffix-container">
+                    <md-icon (click)="updateDiscount(row)">mode_edit</md-icon>
+                </div>
+            </md-cell>
+
+        </ng-container>
+
+        <ng-container cdkColumnDef="itemTotal">
+            <md-header-cell *cdkHeaderCellDef>Item total</md-header-cell>
+            <md-cell *cdkCellDef="let row"> {{row.itemTotal}} </md-cell>
         </ng-container>
 
         <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
@@ -55,13 +84,15 @@
     </md-table>
     <table class="total-table">
         <thead class="mat-header-row">
+            <th class="mat-header-cell">Total Tax</th>
             <th class="mat-header-cell">Total Discount</th>
             <th class="mat-header-cell">Total Price</th>
         </thead>
         <tbody>
             <tr class="mat-row">
-                <td class="mat-cell">{{dataSource.totalDiscount}}</td>
-                <td class="mat-cell">{{dataSource.totalEstimatedPrice}}</td>
+                <td class="mat-cell">{{dataSource.totals.totalTax}}</td>
+                <td class="mat-cell">{{dataSource.totals.totalDiscount}}</td>
+                <td class="mat-cell">{{dataSource.totals.totalAmount}}</td>
             </tr>
         </tbody>
     </table>

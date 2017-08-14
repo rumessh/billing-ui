@@ -1,0 +1,23 @@
+@import '../../../../styles/constants';
+
+.invoice-create-card {
+  display: flex;
+  flex-direction: column;
+
+  .mat-input-container {
+      margin: 5px;
+      width: 95%
+    }
+
+  .invoice-create-top-section {
+    .mat-input-container {
+      margin-right: 10px;
+      width: 45%;
+      @media (max-width: $small-breakpoint-width) {
+        margin: 5px;
+        width: 95%;
+      }
+    }
+  }
+
+}

@@ -43,7 +43,7 @@ export class OrderCreate {
     this.dateAdapter.setLocale('in');
     let customerId;
     route.parent.params.subscribe((params) => {
-      customerId = params.id
+      customerId = params.customerId
     });
 
     this.buildCreateOrderForm(customerId);

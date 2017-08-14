@@ -1,0 +1,44 @@
+<div *ngIf="isFilterRequired" class="order-list-header">
+    <md-input-container floatPlaceholder="never">
+        <input mdInput #filter placeholder="Filter orders">
+    </md-input-container>
+</div>
+<div class="order-list-table-wrapper">
+    <md-table #table [dataSource]="dataSource">
+        <ng-container cdkColumnDef="delete">
+            <md-header-cell *cdkHeaderCellDef></md-header-cell>
+            <md-cell *cdkCellDef="let row">
+                <md-icon (click)="deleteOrder($event, row)">delete</md-icon>
+            </md-cell>
+        </ng-container>
+        <ng-container cdkColumnDef="orderNumber">
+            <md-header-cell *cdkHeaderCellDef>Order Number</md-header-cell>
+            <md-cell *cdkCellDef="let row"> <a [routerLink]="['/order', row.orderUuid]"> {{row.orderNumber}}</a></md-cell>
+        </ng-container>
+
+        <ng-container cdkColumnDef="createdDate">
+            <md-header-cell *cdkHeaderCellDef>Created Date</md-header-cell>
+            <md-cell *cdkCellDef="let row"> {{row.createdDate}}</md-cell>
+        </ng-container>
+
+        <ng-container cdkColumnDef="status">
+            <md-header-cell *cdkHeaderCellDef>Status</md-header-cell>
+            <md-cell *cdkCellDef="let row"> {{row.status}}</md-cell>
+        </ng-container>
+
+        <ng-container cdkColumnDef="salesPerson">
+            <md-header-cell *cdkHeaderCellDef>Sales Person</md-header-cell>
+            <md-cell *cdkCellDef="let row"> {{row.assignedUser}} </md-cell>
+        </ng-container>
+
+        <ng-container cdkColumnDef="neededByDate">
+            <md-header-cell *cdkHeaderCellDef>Needed By Date</md-header-cell>
+            <md-cell *cdkCellDef="let row"> {{row.neededByDate}} </md-cell>
+        </ng-container>
+
+        <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
+        <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
+    </md-table>
+</div>
+<md-paginator #paginator [length]="100" [pageIndex]="0" [pageSize]="2" [pageSizeOptions]="[5, 10]" (page)="pageEvent = $event; onPaginateChange($event)">
+</md-paginator>

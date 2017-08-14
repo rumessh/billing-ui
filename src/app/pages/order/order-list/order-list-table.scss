@@ -1,0 +1,41 @@
+@import '../../../../styles/constants';
+
+.order-list-header {
+  min-height: 64px;
+  display: flex;
+  align-items: baseline;
+  padding: 8px 24px 0;
+  font-size: 20px;
+  justify-content: space-between;
+}
+
+.order-list-table-wrapper {
+  overflow: auto;
+
+  .mat-table {
+    min-width: 500px;
+    margin-bottom: 4px;
+  }
+}
+
+.mat-header-row, .mat-row {
+  .mat-cell, .mat-header-cell {
+    &:first-child {
+      flex: 0.3
+    }
+  }
+}
+
+.suffix-container {
+  
+  position: relative;
+  display: inline-block;
+  
+  .mat-icon {
+    @include suffix-icon-size(19px);
+    position: absolute;
+    left: 18px;
+    top: -16px;
+  }
+  
+}

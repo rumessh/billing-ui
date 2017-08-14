@@ -19,7 +19,8 @@ export interface Order {
     orderNotes?: String,
     orderLineItems: Product[],
     neededByDate: String,
-    customer?: Customer
+    customer?: Customer,
+    orderNumber?: String
 }
 
 

@@ -1,0 +1,11 @@
+<div class="order-list-container mat-elevation-z8">
+  <md-toolbar class="order-list-toolbar">
+    <span>Order List</span>
+    <span class="big-spacer"></span>
+    <button md-raised-button [routerLink]="['orders', 'create']">CREATE ORDER</button>
+  </md-toolbar>
+  <order-list-table [displayedColumns]="displayedColumns"
+        [isSearched]="isSearched"
+        [searchData]="orderList"
+        [isFilterRequired]="isFilterRequired"></order-list-table>
+</div>

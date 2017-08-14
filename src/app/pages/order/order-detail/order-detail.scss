@@ -1,0 +1,32 @@
+@import '../../../../styles/constants';
+
+.order-detail-card {
+  display: flex;
+  flex-direction: column;
+
+  .mat-input-container {
+      margin: 5px;
+      width: 95%
+    }
+
+  .order-detail-top-section {
+    .mat-input-container {
+      margin-right: 10px;
+      width: 45%;
+      @media (max-width: $small-breakpoint-width) {
+        margin: 5px;
+        width: 95%;
+      }
+    }
+  }
+
+  .product-search-container {
+    .mat-select {
+      width: 30%;
+    }
+    .mat-input-container {
+      width: 40%;
+    }
+  }
+
+}

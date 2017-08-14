@@ -1,0 +1,37 @@
+<div class="invoice-create-container">
+  <md-card class="invoice-create-card">
+    <md-card-title>Create Invoice</md-card-title>
+    <form class="invoice-create-form" [formGroup]="createInvoiceForm" (ngSubmit)="onSubmit()">
+      <div class="invoice-create-top-section">
+        <md-input-container>
+          <input type="text" placeholder="Customer" mdInput formControlName="customer">
+        </md-input-container>
+        <md-input-container>
+          <input type="text" placeholder="Order Number" mdInput formControlName="orderNumber">
+        </md-input-container>
+      </div>
+      <div class="invoice-create-top-section">
+        <md-input-container>
+          <input mdInput placeholder="Invoice Date" [mdDatepicker]="datePicker" formControlName="invoiceDate" />
+          <button mdSuffix [mdDatepickerToggle]="datePicker"></button>
+          <md-error *ngIf="createInvoiceForm.get('invoiceDate').hasError('required')">
+            Invoice date is <strong>required</strong>
+          </md-error>
+        </md-input-container>
+        <md-datepicker #datePicker></md-datepicker>    
+        <md-input-container>
+          <input type="text" placeholder="Overall Discount" mdInput formControlName="discount">
+        </md-input-container>    
+      </div>
+      <product-list-table *ngIf="invoicedProductList.length > 0" [displayedColumns]="displayedColumns" [isSearched]="isSearched"
+        [isPaginated]="isPaginated" [searchData]="invoicedProductList" [isFilterRequired]="isFilterRequired" [isTemproraryDelete]="true"></product-list-table>
+      <md-input-container>
+        <textarea type="textarea" placeholder="Notes" mdInput formControlName="invoiceNotes"></textarea>
+      </md-input-container>
+      <md-card-actions>
+        <button md-button [disabled]="invoicedProductList.length < 1" type="submit">Save</button>
+        <button md-button type="reset" (click)="revert()">Reset</button>
+      </md-card-actions>
+    </form>
+  </md-card>
+</div>

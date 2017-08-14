@@ -8,7 +8,8 @@ import { CategoryCreate } from './pages/catalog/category-create/category-create'
 import { ProductCreate } from './pages/catalog/product-create/product-create';
 import { OrderCreate } from './pages/order/order-create/order-create';
 import { OrderList } from './pages/order/order-list/order-list';
-import {OrderDetail} from './pages/order/order-detail/order-detail';
+import { OrderDetail } from './pages/order/order-detail/order-detail';
+import { InvoiceCreate } from './pages/invoice/invoice-create/invoice-create';
 
 export const AppRoutes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -28,11 +29,19 @@ export const AppRoutes: Routes = [
         ]
     },
     {
-        path: 'customer/:id', 
+        path: 'customer/:customerId',
         component: SideNav,
         children: [
-            { path: '', component: CustomerCreate},
-            { path: 'orders/create', component: OrderCreate, pathMatch: 'full' }
+            { path: '', component: CustomerCreate },
+            { path: 'orders/create', component: OrderCreate, pathMatch: 'full' },
+            { path: 'order/:orderId', component: OrderDetail }
+        ]
+    },
+    {
+        path: 'customer/:customerId/order/:orderId/invoices/create',
+        component: SideNav,
+        children: [
+            { path: '', component: InvoiceCreate }
         ]
     },
     { path: 'customers/', redirectTo: '/customers' },
@@ -54,7 +63,7 @@ export const AppRoutes: Routes = [
         component: SideNav,
         children: [
             { path: 'create', component: OrderCreate },
-            {path: '', component: OrderList, pathMatch: 'full'}
+            { path: '', component: OrderList, pathMatch: 'full' }
             //{path: 'order/:id', component: OrderDetail, pathMatch: 'full'}
         ]
     },
@@ -62,13 +71,20 @@ export const AppRoutes: Routes = [
         path: 'order',
         component: SideNav,
         children: [
-            {path: ':id', component: OrderDetail }
+            { path: ':orderId', component: OrderDetail }
         ]
     },
     {
         path: 'orders/',
         redirectTo: '/orders'
     },
+    {
+        path: 'invoices',
+        component: SideNav,
+        children: [
+            { path: 'create', component: InvoiceCreate }
+        ]
+    }
     /* {
       path: 'customers',
       component: SideNav,
@@ -98,5 +114,5 @@ export const AppRoutes: Routes = [
               {path: 'invoice/:id', component: InvoiceDetail, pathMatch: 'full'}
           ]
       }, */
-    {path: '**', redirectTo: '/home'}
+    //{path: '**', redirectTo: '/home'}
 ];

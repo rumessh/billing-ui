@@ -1,0 +1,30 @@
+<div class="order-detail-container">
+    <md-card class="order-detail-card">
+        <md-card-title>Sales Order #{{orderDetail.orderNumber}}</md-card-title>
+        <form class="order-detail-form" [formGroup]="detailOrderForm" (ngSubmit)="onSubmit()">
+            <div class="order-detail-top-section">
+                <md-input-container>
+                    <input type="text" placeholder="Customer" mdInput formControlName="customer">
+                </md-input-container>
+                <md-input-container>
+                    <input mdInput placeholder="Needed By Date" [mdDatepicker]="datePicker" formControlName="neededByDate" />
+                    <button mdSuffix [mdDatepickerToggle]="datePicker"></button>
+                    <md-error *ngIf="detailOrderForm.get('neededByDate').hasError('required')">
+                        Needed by date is <strong>required</strong>
+                    </md-error>
+                </md-input-container>
+                <md-datepicker #datePicker></md-datepicker>
+            </div>
+            <product-search [isAddEnabled]="true" (productAdded)="productAdded($event)"></product-search>
+            <product-list-table *ngIf="orderDetail && orderDetail.orderLineItems" [displayedColumns]="displayedColumns" [isSearched]="isSearched" [isPaginated]="isPaginated" [searchData]="orderDetail.orderLineItems"
+                [isFilterRequired]="isFilterRequired" [isTemproraryDelete]="true"></product-list-table>
+            <md-input-container>
+                <textarea type="textarea" placeholder="Notes" mdInput formControlName="orderNotes"></textarea>
+            </md-input-container>
+            <md-card-actions>
+                <button md-button type="submit">Save</button>
+                <button md-button type="reset" (click)="revert()">Reset</button>
+            </md-card-actions>
+        </form>
+    </md-card>
+</div>

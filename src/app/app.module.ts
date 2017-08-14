@@ -11,6 +11,7 @@ import {CustomerModule} from './pages/customer/customer.module';
 import {CatalogModule} from './pages/catalog/catalog.module';
 import {OrderModule} from './pages/order/order-module';
 import {AuthService} from './shared/auth-service/auth-service';
+import { InvoiceModule } from './pages/invoice/invoice.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {AuthService} from './shared/auth-service/auth-service';
     HomepageModule,
     CustomerModule,
     CatalogModule,
-    OrderModule
+    OrderModule,
+    InvoiceModule
   ],
   providers: [PageUtil, AuthService],
   bootstrap: [AppComponent]

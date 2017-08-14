@@ -3,9 +3,9 @@ import { MdPaginatorModule, MdInputModule, MdTableModule, MdPaginator, MdDialog,
 import { DataSource } from '@angular/cdk';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
-import { QuantityDialog } from './quantity-dialog';
+import { UpdateDialog } from './update-dialog';
 
-import { CatalogDataService, Product } from '../catalog-data/catalog-data';
+import { CatalogDataService, Product, Totals } from '../catalog-data/catalog-data';
 
 
 @Component({
@@ -20,6 +20,7 @@ export class ProductListTable implements OnChanges {
     @Input() isPaginated: boolean;
     @Input() isFilterRequired: boolean;
     @Input() isTemproraryDelete: boolean;
+    @Input() overallDiscount: number;
     dataSource: ProductDataSource | null;
     totalEstimatedPrice: number;
 
@@ -41,6 +42,9 @@ export class ProductListTable implements OnChanges {
                 this.dataSource = new ProductDataSource(this.paginator, this.catalogDataService, this.isSearched, this.searchData);
                 break;
             }
+            else if(propName === 'overallDiscount') {
+                this.dataSource.totals.totalDiscount = this.dataSource.totals.totalDiscount + this.overallDiscount;
+            }
         }
     }
 
@@ -53,11 +57,24 @@ export class ProductListTable implements OnChanges {
     }
 
     updateQuantity(row: Product) {
-        let dialogRef = this.dialog.open(QuantityDialog);
-        dialogRef.componentInstance.previousQuantity = row.quantityRequested;
+        let dialogRef = this.dialog.open(UpdateDialog);
+        dialogRef.componentInstance.previousValue = row.quantityRequested;
+        dialogRef.componentInstance.title = 'Update Quantity';
         dialogRef.afterClosed().subscribe(result => {
-            result ? row.quantityRequested = result : row.quantityRequested;
+            result ? row.quantityRequested = parseInt(result, 10) : row.quantityRequested;
+            result ? row.invoicedQuantity = parseInt(result, 10) : row.invoicedQuantity;
+            this.dataSource.updateTotals();
         });
+    }
+
+    updateDiscount(row: Product) {
+        let dialogRef = this.dialog.open(UpdateDialog);
+        dialogRef.componentInstance.previousValue = row.discount;
+        dialogRef.componentInstance.title = 'Update Discount';
+        dialogRef.afterClosed().subscribe(result => {
+            result ? row.discount = parseInt(result, 10) : row.discount;
+            this.dataSource.updateTotals();
+        }); 
     }
 
     deleteProduct(row: Product) {
@@ -76,9 +93,9 @@ export class ProductListTable implements OnChanges {
 }
 
 export class ProductDataSource extends DataSource<any> {
-    
-    totalEstimatedPrice: number;
-    
+
+    totals: Totals = {};
+
     constructor(private _paginator: MdPaginator,
         private catalogDataService: CatalogDataService,
         private isSearched: boolean,
@@ -88,9 +105,7 @@ export class ProductDataSource extends DataSource<any> {
 
     connect(): Observable<any[]> {
         if (this.isSearched) {
-            this.totalEstimatedPrice = this.searchData.length > 0 ? this.searchData.reduce((total, product) => {
-                return total + (product['unitPrice'] * product['quantityRequested']);
-            }, 0) : 0;
+            this.updateTotals();
             return Observable.of(this.searchData);
         }
         else {
@@ -100,5 +115,34 @@ export class ProductDataSource extends DataSource<any> {
         }
     }
 
+    updateTotals() {
+
+        this.totals = {
+            totalAmount: 0,
+            totalDiscount: 0,
+            totalItems: 0,
+            totalTax: 0,
+            overAllDiscount: 0
+        };
+
+        this.totals = this.searchData.length > 0 ? this.searchData.reduce((totals: Totals, product) => {
+            let itemTotal = product['unitPrice'] * product['quantityRequested'];
+            let itemTax = product['taxAmount'] = product['taxPercentage'] * itemTotal / 100;
+            let itemDiscount = product['discount'] = product['discount'] ? product['discount'] : 0;
+            product['itemTotal'] = itemTax + itemTotal;
+
+            totals.totalDiscount = totals.totalDiscount + itemDiscount;            
+            totals.totalTax = totals.totalTax + itemTax;
+            totals.totalAmount = totals.totalAmount + itemTotal + totals.totalTax - totals.totalDiscount;
+            return totals;
+        }, this.totals) : this.totals;
+    }
+
+    addOverAllDiscount(overAllDiscount: number) {
+        this.totals.overAllDiscount = overAllDiscount;
+        this.totals.totalDiscount += overAllDiscount;
+        this.totals.totalAmount -= overAllDiscount;
+    }
+    
     disconnect() { }
 }

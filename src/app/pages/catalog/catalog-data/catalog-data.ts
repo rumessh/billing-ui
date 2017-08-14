@@ -17,7 +17,18 @@ export interface Product {
     categoryUuid: String,
     orgUuid: String,
     keywords?: String[],
-    quantityRequested?:number
+    quantityRequested?:number,
+    tax?: number,
+    discount?: number,
+    invoicedQuantity?: number
+}
+
+export interface Totals {
+    totalTax?: number,
+    totalDiscount?: number,
+    totalAmount?: number,
+    totalItems?: number,
+    overAllDiscount?: number
 }
 
 export interface Category {

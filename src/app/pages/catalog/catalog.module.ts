@@ -14,7 +14,7 @@ import {CategoryCreate} from './category-create/category-create';
 import {ProductCreate} from './product-create/product-create';
 import {ProductListTable} from './product-list/product-list-table';
 import {ProductSearch} from './product-list/product-search';
-import {QuantityDialog} from './product-list/quantity-dialog';
+import {UpdateDialog} from './product-list/update-dialog';
 
 @NgModule({
   imports: [
@@ -33,9 +33,9 @@ import {QuantityDialog} from './product-list/quantity-dialog';
       MdAutocompleteModule,
       MdDialogModule
     ],
-  exports: [ProductList, CategoryCreate, ProductCreate, ProductListTable, ProductSearch, QuantityDialog],
-  declarations: [ProductList, CategoryCreate, ProductCreate, ProductListTable, ProductSearch, QuantityDialog],
-  entryComponents: [QuantityDialog],
+  exports: [ProductList, CategoryCreate, ProductCreate, ProductListTable, ProductSearch],
+  declarations: [ProductList, CategoryCreate, ProductCreate, ProductListTable, ProductSearch, UpdateDialog],
+  entryComponents: [UpdateDialog],
   providers: [PageUtil, CatalogDataService]
 })
 export class CatalogModule {}
