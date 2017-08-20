@@ -20,7 +20,8 @@ export interface Product {
     quantityRequested?:number,
     tax?: number,
     discount?: number,
-    invoicedQuantity?: number
+    invoicedQuantity?: number,
+    deliveredQuantity?: number
 }
 
 export interface Totals {

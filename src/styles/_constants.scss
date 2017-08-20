@@ -6,3 +6,12 @@ $small-breakpoint-width: 840px;
   height: $size;
   cursor: pointer;
 }
+
+%half-width-input {
+  margin-right: 10px;
+  width: 45%;
+  @media (max-width: $small-breakpoint-width) {
+    margin: 5px;
+    width: 95%;
+  }
+}

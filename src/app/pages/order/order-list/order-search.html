@@ -1,0 +1,10 @@
+<form class="order-search-form" [formGroup]="searchOrderForm">
+    <md-input-container>
+        <input type="text" placeholder="Order Number" mdInput formControlName="orderNumber" [mdAutocomplete]="orderNumberAuto">
+    </md-input-container>
+    <md-autocomplete [displayWith]="orderAutoDisplay" #orderNumberAuto="mdAutocomplete">
+        <md-option (onSelectionChange)="orderSelected(order)" *ngFor="let order of orderSuggestionList" [value]="order">
+            {{ order.orderNumber }}
+        </md-option>
+    </md-autocomplete>
+</form>

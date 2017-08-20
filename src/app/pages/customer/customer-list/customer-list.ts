@@ -21,6 +21,7 @@ export class CustomerList {
               private customerDataService: CustomerDataService) { }
   displayedColumns = ['name', 'phone'];
   dataSource: CustomerDataSource | null;
+  pageEvent: PageEvent;
 
   @ViewChild(MdPaginator) paginator: MdPaginator;
   @ViewChild("filter") filter: ElementRef;

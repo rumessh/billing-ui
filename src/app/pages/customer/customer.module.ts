@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 
 import {CustomerDataService} from './customer-data/customer-data';
 import {CustomerList} from './customer-list/customer-list';
+import {CustomerSearch} from './customer-list/customer-search';
 import {CustomerCreate} from './customer-create/customer-create';
 
 @NgModule({
@@ -25,8 +26,8 @@ import {CustomerCreate} from './customer-create/customer-create';
       ReactiveFormsModule,
       CommonModule
     ],
-  exports: [CustomerList, CustomerCreate],
-  declarations: [CustomerList, CustomerCreate],
+  exports: [CustomerList, CustomerCreate, CustomerSearch],
+  declarations: [CustomerList, CustomerCreate, CustomerSearch],
   providers: [PageUtil, CustomerDataService]
 })
 export class CustomerModule {}

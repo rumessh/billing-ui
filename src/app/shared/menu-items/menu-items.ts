@@ -21,7 +21,7 @@ const MENUS = [
     action1label: 'CREATE CUSTOMER',
     action2label: 'VIEW CUSTOMERS',
     items: [
-        {id: '', name: 'Create a customer', type: 'create'},
+        {id: '', name: 'Create customer', type: 'create'},
         {id: '', name: 'List all customers'}
     ]
   },
@@ -32,7 +32,7 @@ const MENUS = [
     action1label: 'CREATE ORDER',
     action2label: 'VIEW ORDERS',
     items: [
-        {id: '', name: 'Create a sale order', type: 'create'},
+        {id: '', name: 'Create sale order', type: 'create'},
         {id: '', name: 'List all sale orders'}
     ]
   },

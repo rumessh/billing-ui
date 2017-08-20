@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { MdInputModule, MdButtonModule, MdSnackBar, DateAdapter } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Customer, CustomerDataService } from '../../customer/customer-data/customer-data';
+import { CustomerSearch } from '../../customer/customer-list/customer-search';
 import { Product } from '../../catalog/catalog-data/catalog-data';
 import { ProductListTable } from '../../catalog/product-list/product-list-table';
 
@@ -22,7 +23,7 @@ export class OrderCreate {
   createOrderForm: FormGroup;
   customer: Customer;
   orderedProductList: Product[] = [];
-  displayedColumns = ['delete', 'name', 'quantityRequested', 'hsnCode', 'productNumber', 'unitPrice'];
+  displayedColumns = ['delete', 'name', 'quantityRequested', 'hsnCode', 'productNumber', 'unitPrice', 'onHandQuantity'];
   isSearched = true;
   isPaginated = false;
   isFilterRequired = false;
@@ -59,12 +60,16 @@ export class OrderCreate {
       orderNotes: ['']
     });
 
-    this.customerDataService.getCustomerData(customerId)
+   /*  this.customerDataService.getCustomerData(customerId)
       .then((customer) => {
         this.createOrderForm.get('customer').setValue(customer.name);
         this.customer = customer;
-      });
+      }); */
 
+  }
+
+  customerSearched(customer: Customer) {
+    this.customer = customer;
   }
 
   productAdded(addedProduct: Product) {

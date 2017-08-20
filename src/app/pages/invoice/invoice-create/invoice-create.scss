@@ -10,13 +10,9 @@
     }
 
   .invoice-create-top-section {
-    .mat-input-container {
-      margin-right: 10px;
-      width: 45%;
-      @media (max-width: $small-breakpoint-width) {
-        margin: 5px;
-        width: 95%;
-      }
+    customer-search, order-search, .mat-input-container {
+      display: inline-block;
+      @extend %half-width-input;
     }
   }
 

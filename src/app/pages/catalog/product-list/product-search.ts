@@ -25,6 +25,7 @@ export class ProductSearch {
     searchProductList: Product[];
     productSuggestionList: Product[];
     selectedProduct: Product;
+    categories: any[];
 
     searchProduct() {
         this.catalogDataService.searchProduct(this.searchProductForm.get('productName').value)

@@ -13,11 +13,6 @@ export class OrderList {
   constructor() {};
   displayedColumns = ['delete', 'orderNumber', 'neededByDate', 'status', 'salesPerson', 'createdDate'];
   isSearched = false;
-  isFilterRequired = true;
-  productList: Order[] = [];
-
-  searchedProducts(productList: Order[]) {
-    this.productList = productList;
-    this.isSearched = true;
-  }
+  isFilterRequired = true;  
+  orderList: Order[] = [];
 }

@@ -1,5 +1,5 @@
 import { Component, AfterViewInit, ChangeDetectorRef, ViewChild, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { MdPaginatorModule, MdInputModule, MdTableModule, MdPaginator, MdDialog, MdDialogRef, MdTooltip } from '@angular/material';
+import { MdPaginatorModule, MdInputModule, MdTableModule, MdPaginator, MdDialog, MdDialogRef, MdTooltip, PageEvent } from '@angular/material';
 import { DataSource } from '@angular/cdk';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
@@ -19,6 +19,7 @@ export class OrderListTable implements OnChanges {
     @Input() isPaginated: boolean;
     @Input() isFilterRequired: boolean;
     dataSource: OrderDataSource | null;
+    pageEvent: PageEvent;
 
     constructor(private cd: ChangeDetectorRef,
         private orderDataService: OrderDataService,

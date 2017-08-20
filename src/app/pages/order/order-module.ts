@@ -11,6 +11,8 @@ import {CatalogModule} from '../catalog/catalog.module';
 import {OrderList} from './order-list/order-list';
 import {OrderListTable} from './order-list/order-list-table';
 import {OrderDetail} from './order-detail/order-detail';
+import { CustomerModule } from '../customer/customer.module';
+import { OrderSearch } from './order-list/order-search';
 
 @NgModule({
     imports: [
@@ -28,9 +30,11 @@ import {OrderDetail} from './order-detail/order-detail';
       CatalogModule,
       MdDatepickerModule,
       MdNativeDateModule,
-      MdTooltipModule
+      MdTooltipModule,
+      CustomerModule
     ],
-    declarations: [OrderCreate, OrderList, OrderListTable, OrderDetail],
+    exports: [OrderSearch],
+    declarations: [OrderCreate, OrderList, OrderListTable, OrderDetail, OrderSearch],
     providers: [PageUtil, OrderDataService]
 })
 export class OrderModule {}

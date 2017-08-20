@@ -3,12 +3,14 @@
     <md-card-title>Create Invoice</md-card-title>
     <form class="invoice-create-form" [formGroup]="createInvoiceForm" (ngSubmit)="onSubmit()">
       <div class="invoice-create-top-section">
-        <md-input-container>
+        <!-- <md-input-container>
           <input type="text" placeholder="Customer" mdInput formControlName="customer">
-        </md-input-container>
-        <md-input-container>
+        </md-input-container> -->
+        <customer-search (customerSearched)="customerSearched($event)"></customer-search>
+        <order-search [customerUuid]="customer.customerUuid" (orderSearched)="orderSearched($event)"></order-search>
+       <!--  <md-input-container>
           <input type="text" placeholder="Order Number" mdInput formControlName="orderNumber">
-        </md-input-container>
+        </md-input-container> -->
       </div>
       <div class="invoice-create-top-section">
         <md-input-container>

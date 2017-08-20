@@ -72,6 +72,22 @@ export class OrderDataPaginated {
             .catch((error: any) => Promise.reject(error.message || error));
     }
 
+    searchOrder(orderNumber: String, customerUuid: String): Promise<Order[]> {
+        return this.http
+            .get(this.url, 
+                {
+                    headers: new Headers({'Content-Type': 'application/json' , 'userUuid': 'b6d6eea0-7a5c-11e7-8718-d9a4a860e55c'}),
+                    params: {
+                        "orderNumber" : orderNumber,
+                        "customerUuid": customerUuid
+                    }
+                }
+            )
+            .toPromise()
+            .then((response: Response) => Promise.resolve(response.json()))
+            .catch((error: any) => Promise.reject(error.message || error));
+    }
+
     constructor(private http: Http, private authService: AuthService) { }
 }
 
@@ -90,6 +106,10 @@ export class OrderDataService {
 
     getOrderByUuid(orderUuid: String): Promise<Order> {
         return this.orderDataPaginated.getOrderByUuid(orderUuid);
+    }
+
+    searchOrder(orderNumber: String, customerUuid: String): Promise<Order[]> {
+        return this.orderDataPaginated.searchOrder(orderNumber, customerUuid);
     }
 
     constructor(private http: Http, private authService: AuthService) {

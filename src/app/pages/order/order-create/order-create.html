@@ -3,9 +3,10 @@
         <md-card-title>Create Order</md-card-title>
         <form class="order-create-form" [formGroup]="createOrderForm" (ngSubmit)="onSubmit()">
             <div class="order-create-top-section">
-                <md-input-container>
+                <!-- <md-input-container>
                     <input type="text" placeholder="Customer" mdInput formControlName="customer">
-                </md-input-container>
+                </md-input-container> -->
+                <customer-search class="customer-search" (customerSearched)="customerSearched($event)"></customer-search>
                 <md-input-container>
                     <input mdInput placeholder="Needed By Date" [mdDatepicker]="datePicker" formControlName="neededByDate" />
                     <button mdSuffix [mdDatepickerToggle]="datePicker"></button>

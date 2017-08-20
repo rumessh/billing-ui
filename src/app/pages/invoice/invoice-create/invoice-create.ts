@@ -4,10 +4,12 @@ import { Order, OrderDataService } from '../../order/order-data/order-data';
 import { Location } from '@angular/common';
 import { MdInputModule, MdButtonModule, MdSnackBar, DateAdapter } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
-import { Customer, CustomerDataService } from '../../customer/customer-data/customer-data';
+import { Customer } from '../../customer/customer-data/customer-data';
+import { CustomerSearch } from '../../customer/customer-list/customer-search';
 import { Product } from '../../catalog/catalog-data/catalog-data';
 import { ProductListTable } from '../../catalog/product-list/product-list-table';
 import { Invoice, InvoiceDataService } from '../invoice-data/invoice-data';
+import { OrderSearch } from '../../order/order-list/order-search';
 
 import { AuthService } from '../../../shared/auth-service/auth-service';
 
@@ -21,7 +23,7 @@ const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA
 export class InvoiceCreate {
 
   createInvoiceForm: FormGroup;
-  customer: Customer;
+  customer: Customer = {} as any;
   invoicedProductList: Product[] = [];
   displayedColumns = ['delete', 'name', 'invoicedQuantity', 'hsnCode', 'tax', 'discount', 'unitPrice'];
   isSearched = true;
@@ -39,7 +41,6 @@ export class InvoiceCreate {
     private location: Location,
     private snackbar: MdSnackBar,
     route: ActivatedRoute,
-    private customerDataService: CustomerDataService,
     private authService: AuthService,
     private orderDataService: OrderDataService) {
     let customerId;
@@ -64,21 +65,39 @@ export class InvoiceCreate {
       invoiceNotes: ['']
     });
 
-    this.customerDataService.getCustomerData(customerId)
+    /* this.customerDataService.getCustomerData(customerId)
       .then((customer) => {
         this.createInvoiceForm.get('customer').setValue(customer.name);
         this.customer = customer;
-      });
+      }); */
 
-    this.orderDataService.getOrderByUuid(orderUuid)
+    /* this.orderDataService.getOrderByUuid(orderUuid)
       .then((order) => {
         this.order = order;
         this.createInvoiceForm.get('orderNumber').setValue(order.orderNumber);
         this.invoicedProductList = order.orderLineItems
-                                    .filter(item => item.onHandQuantity > item.quantityRequested);
+                                    .filter(item => (item.onHandQuantity > item.quantityRequested 
+                                                      && item.quantityRequested > item.deliveredQuantity));
         this.invoicedProductList.forEach(item => item.invoicedQuantity = item.quantityRequested);                
-      });
+      }); */
 
+  }
+
+  customerSearched(customer: Customer) {
+    this.customer = customer;
+  }
+
+  orderSearched(order: Order) {
+    this.order = order;
+    this.orderDataService.getOrderByUuid(order.orderUuid)
+    .then((order) => {
+      this.order = order;
+      this.createInvoiceForm.get('orderNumber').setValue(order.orderNumber);
+      this.invoicedProductList = order.orderLineItems
+                                  .filter(item => (item.onHandQuantity >= item.quantityRequested 
+                                                    && item.quantityRequested > item.deliveredQuantity));
+      this.invoicedProductList.forEach(item => item.invoicedQuantity = item.quantityRequested);                
+    });  
   }
 
   onSubmit() {

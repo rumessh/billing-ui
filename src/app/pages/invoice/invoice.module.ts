@@ -5,6 +5,8 @@ import { InvoiceDataService } from './invoice-data/invoice-data';
 import {MaterialModule, MdPaginatorModule, MdInputModule, MdButtonModule, MdTableModule, MdAutocompleteModule, MdDatepickerModule, MdNativeDateModule, MdTooltipModule } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CatalogModule} from '../catalog/catalog.module';
+import {CustomerModule} from '../customer/customer.module';
+import { OrderModule } from '../order/order-module';
 
 @NgModule({
   imports: [
@@ -20,7 +22,9 @@ import {CatalogModule} from '../catalog/catalog.module';
     MdTooltipModule,
     FormsModule,
     ReactiveFormsModule,
-    CatalogModule
+    CatalogModule,
+    CustomerModule,
+    OrderModule
   ],
   declarations: [InvoiceCreate],
   providers: [InvoiceDataService]
