@@ -42,11 +42,11 @@ let headers = new Headers({ 'Content-Type': 'application/json' });
 
 export class ProductDataPaginated {
 
-    private url = 'http://localhost:8081/billing/org/'+ this.authService.getOrgUuid() +'/productapi/v1/products';
+    private url = '/api/billing/org/'+ this.authService.getOrgUuid() +'/productapi/v1/products';
     totalCount: any;
 
     searchProduct(productName: String): Promise<Product[]> {
-        const url = 'http://localhost:8081/billing/org/'+ this.authService.getOrgUuid() +'/productapi/v1/products?productName='+productName;
+        const url = '/api/billing/org/'+ this.authService.getOrgUuid() +'/productapi/v1/products?productName='+productName;
         return this.http
             .get(url, {headers: headers})
             .toPromise()
@@ -78,7 +78,7 @@ export class ProductDataPaginated {
     }
 
     createProduct(product: Product): Promise<Product> {
-        const url = 'http://localhost:8081/billing/org/'+ this.authService.getOrgUuid() +'/productapi/v1/product';
+        const url = '/api/billing/org/'+ this.authService.getOrgUuid() +'/productapi/v1/product';
         return this.http
             .post(url, JSON.stringify(product), { headers: headers })
             .toPromise()
@@ -93,7 +93,7 @@ export class ProductCategoryData {
 
     createCategory(category: Category): Promise<Category> {
 
-        const url = 'http://localhost:8081/billing/org/'+ this.authService.getOrgUuid() +'/categoryapi/v1/category';
+        const url = '/api/billing/org/'+ this.authService.getOrgUuid() +'/categoryapi/v1/category';
         return this.http
             .post(url, JSON.stringify(category), { headers: headers })
             .toPromise()
@@ -102,7 +102,7 @@ export class ProductCategoryData {
     }
     
     getAllCategories() : Promise<Category[]> {
-        const url = 'http://localhost:8081/billing/org/'+ this.authService.getOrgUuid() +'/categoryapi/v1/categories';
+        const url = '/api/billing/org/'+ this.authService.getOrgUuid() +'/categoryapi/v1/categories';
         return this.http
             .get(url, {headers: headers})
             .toPromise()

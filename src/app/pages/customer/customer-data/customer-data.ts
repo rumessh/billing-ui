@@ -15,7 +15,7 @@ export interface Customer {
 
 export class CustomerDataPaginated {
 
-    private url = 'http://localhost:8081/billing/org/' + this.authService.getOrgUuid() + '/customerapi/v1/customers';
+    private url = '/api/billing/org/' + this.authService.getOrgUuid() + '/customerapi/v1/customers';
     totalCount: any;
 
     getCustomerList(start, size): Observable<any> {
@@ -49,7 +49,7 @@ export class CustomerDataService {
     customerDataPaginated: CustomerDataPaginated | null;
 
     getCustomerData(customerId: String): Promise<Customer> {
-        const url = 'http://localhost:8081/billing/org/' + this.authService.getOrgUuid() + '/customerapi/v1/customer/' + customerId;
+        const url = '/api/billing/org/' + this.authService.getOrgUuid() + '/customerapi/v1/customer/' + customerId;
         return this.http
             .get(url, { headers: this.headers })
             .toPromise()
@@ -58,7 +58,7 @@ export class CustomerDataService {
     }
 
     searchCustomer(cusotomerName: String): Promise<Customer[]> {
-        const url = 'http://localhost:8081/billing/org/'+ this.authService.getOrgUuid() +'/customerapi/v1/customers?customerName='+cusotomerName;
+        const url = '/api/billing/org/'+ this.authService.getOrgUuid() +'/customerapi/v1/customers?customerName='+cusotomerName;
         return this.http
             .get(url, {headers: this.headers})
             .toPromise()
@@ -72,7 +72,7 @@ export class CustomerDataService {
     }
 
     createCustomer(customer: Customer): Promise<Customer> {
-        const url = 'http://localhost:8081/billing/org/' + this.authService.getOrgUuid() + '/customerapi/v1/customer';
+        const url = '/api/billing/org/' + this.authService.getOrgUuid() + '/customerapi/v1/customer';
         return this.http
             .post(url, JSON.stringify(customer), { headers: this.headers })
             .toPromise()

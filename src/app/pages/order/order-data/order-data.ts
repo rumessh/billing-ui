@@ -28,11 +28,11 @@ let headers = new Headers({ 'Content-Type': 'application/json' });
 
 export class OrderDataPaginated {
 
-    private url = 'http://localhost:8081/billing/org/'+ this.authService.getOrgUuid() +'/orderapi/v1/orders';
+    private url = '/api/billing/org/'+ this.authService.getOrgUuid() +'/orderapi/v1/orders';
     totalCount: any;
 
     getOrderByUuid(orderUuid: String):Promise<Order> {
-        const url = 'http://localhost:8081/billing/org/'+ this.authService.getOrgUuid() +'/orderapi/v1/order/'+orderUuid;
+        const url = '/api/billing/org/'+ this.authService.getOrgUuid() +'/orderapi/v1/order/'+orderUuid;
         return this.http
             .get(url, {headers: headers})
             .toPromise()
@@ -64,7 +64,7 @@ export class OrderDataPaginated {
     }
 
     createOrder(order: Order): Promise<Order> {
-        const url = 'http://localhost:8081/billing/org/'+ this.authService.getOrgUuid() +'/orderapi/v1/order';
+        const url = '/api/billing/org/'+ this.authService.getOrgUuid() +'/orderapi/v1/order';
         return this.http
             .post(url, JSON.stringify(order), { headers: headers })
             .toPromise()

@@ -28,11 +28,11 @@ let headers = new Headers({ 'Content-Type': 'application/json' });
 
 export class InvoiceDataPaginated {
 
-    private url = 'http://localhost:8081/billing/org/'+ this.authService.getOrgUuid() +'/invoiceapi/v1/invoices';
+    private url = '/api/billing/org/'+ this.authService.getOrgUuid() +'/invoiceapi/v1/invoices';
     totalCount: any;
 
     getInvoiceByUuid(invoiceUuid: String):Promise<Invoice> {
-        const url = 'http://localhost:8081/billing/org/'+ this.authService.getOrgUuid() +'/invoiceapi/v1/invoice/'+invoiceUuid;
+        const url = '/api/billing/org/'+ this.authService.getOrgUuid() +'/invoiceapi/v1/invoice/'+invoiceUuid;
         return this.http
             .get(url, {headers: headers})
             .toPromise()
@@ -61,7 +61,7 @@ export class InvoiceDataPaginated {
     }
 
     createInvoice(invoice: Invoice): Promise<Invoice> {
-        const url = 'http://localhost:8081/billing/org/'+ this.authService.getOrgUuid() +'/invoiceapi/v1/invoice';
+        const url = '/api/billing/org/'+ this.authService.getOrgUuid() +'/invoiceapi/v1/invoice';
         return this.http
             .post(url, JSON.stringify(invoice), { headers: headers })
             .toPromise()
