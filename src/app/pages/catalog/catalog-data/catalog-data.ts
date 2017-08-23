@@ -11,6 +11,7 @@ export interface Product {
     categoryName: String,
     productDescription?: String,
     hsnCode: String,
+    taxPercentage?: number,
     productNumber?: String,
     unitPrice: number,
     onHandQuantity: number,

@@ -96,7 +96,7 @@ export class InvoiceCreate {
       this.invoicedProductList = order.orderLineItems
                                   .filter(item => (item.onHandQuantity >= item.quantityRequested 
                                                     && item.quantityRequested > item.deliveredQuantity));
-      this.invoicedProductList.forEach(item => item.invoicedQuantity = item.quantityRequested);                
+      this.invoicedProductList.forEach(item => item.invoicedQuantity = item.quantityRequested - item.deliveredQuantity);                
     });  
   }
 

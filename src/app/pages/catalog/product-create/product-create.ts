@@ -46,6 +46,7 @@ export class ProductCreate {
             keywords: '',
             category: ['', Validators.required],
             hsnCode: ['', Validators.required],
+            taxPercentage: ['', Validators.required]
         });
     }
 
@@ -81,6 +82,7 @@ export class ProductCreate {
             orgUuid: this.authService.getOrgUuid(),
             productDescription: formModel.description,
             hsnCode: formModel.hsnCode,
+            taxPercentage: formModel.taxPercentage,
             productNumber: formModel.productNumber,
             unitPrice: formModel.unitPrice,
             onHandQuantity: formModel.onHandQuantity,

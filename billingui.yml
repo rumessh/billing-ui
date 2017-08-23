@@ -1,0 +1,36 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: billingui
+spec:
+  selector:
+    app: billingui
+  ports:
+    - protocol: "TCP"
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+  
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: billingui
+spec:
+  replicas: 1
+  selector:
+    app: billingui
+  template:
+    metadata:
+      name: billingui
+      labels:
+        app: billingui
+    spec:
+      containers:
+      - name: billingui
+        image: gcr.io/intrepid-kiln-174422/billing-ui:v0.0.1
+        ports:
+        - containerPort: 80
+      nodeSelector:
+        nodefor: uianddb

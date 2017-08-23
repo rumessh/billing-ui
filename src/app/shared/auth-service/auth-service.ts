@@ -9,6 +9,6 @@ export class AuthService {
     _orgUuid: String = '';
 
     getOrgUuid() {
-        return '81a5b183-86df-11e7-9412-0242ac110002';
+        return '89311d7d-8780-11e7-8b19-0a580a100006';
     }
 }

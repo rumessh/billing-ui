@@ -35,6 +35,12 @@
                 </md-option>
             </md-autocomplete>
             <md-input-container>
+                <input type="text" placeholder="Tax percentage" mdInput formControlName="taxPercentage">
+                <md-error *ngIf="createProductForm.get('taxPercentage').hasError('required')">
+                    Tax percentage is <strong>required</strong>
+                </md-error>
+            </md-input-container>
+            <md-input-container>
                 <input mdInput placeholder="On Hand Quantity" type="number" formControlName="onHandQuantity" maxlength="10">
                 <md-error *ngIf="createProductForm.get('onHandQuantity').hasError('required')">
                     On hand quantity is <strong>required</strong>
