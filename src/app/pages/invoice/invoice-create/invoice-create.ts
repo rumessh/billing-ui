@@ -12,6 +12,7 @@ import { Invoice, InvoiceDataService } from '../invoice-data/invoice-data';
 import { OrderSearch } from '../../order/order-list/order-search';
 
 import { AuthService } from '../../../shared/auth-service/auth-service';
+import { PageUtil } from '../../../shared/page-util/page-util';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
@@ -31,6 +32,7 @@ export class InvoiceCreate {
   isFilterRequired = false;
   totalEstimatedPrice: number;
   order: Order;
+  isMobile = "";
 
   @ViewChild(ProductListTable)
   private productListTable: ProductListTable;
@@ -42,13 +44,16 @@ export class InvoiceCreate {
     private snackbar: MdSnackBar,
     route: ActivatedRoute,
     private authService: AuthService,
-    private orderDataService: OrderDataService) {
+    private orderDataService: OrderDataService,
+    private pageUtil: PageUtil) {
     let customerId;
     let orderUuid;
     route.parent.params.subscribe((params) => {
       customerId = params.customerId;
       orderUuid = params.orderId;
     });
+
+    this.isMobile = pageUtil.isMobile() ? "true":"";
 
     this.buildCreateInvoiceForm(customerId, orderUuid);
   }

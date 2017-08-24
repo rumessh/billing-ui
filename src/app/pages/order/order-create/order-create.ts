@@ -10,6 +10,7 @@ import { Product } from '../../catalog/catalog-data/catalog-data';
 import { ProductListTable } from '../../catalog/product-list/product-list-table';
 
 import { AuthService } from '../../../shared/auth-service/auth-service';
+import { PageUtil } from '../../../shared/page-util/page-util';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
@@ -28,6 +29,7 @@ export class OrderCreate {
   isPaginated = false;
   isFilterRequired = false;
   totalEstimatedPrice: number;
+  isMobile = "";
 
   @ViewChild(ProductListTable)
   private productListTable: ProductListTable;
@@ -40,12 +42,15 @@ export class OrderCreate {
     route: ActivatedRoute,
     private customerDataService: CustomerDataService,
     private authService: AuthService,
-    private dateAdapter: DateAdapter<Date>) {
+    private dateAdapter: DateAdapter<Date>,
+    private pageUtil: PageUtil) {
     this.dateAdapter.setLocale('in');
     let customerId;
     route.parent.params.subscribe((params) => {
       customerId = params.customerId
     });
+
+    this.isMobile = pageUtil.isMobile() ? "true" : "";
 
     this.buildCreateOrderForm(customerId);
   }

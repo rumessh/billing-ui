@@ -8,7 +8,7 @@
             <md-card-title>{{category.name}}</md-card-title>
             <p class="menu-list-card-summary">{{category.summary}}</p>
             <md-card-actions >
-                <button *ngIf="category.default && category.default != ''" [routerLink]="['/', category.id, category.default, 'create']" md-button>{{category.action1label}}</button>
+                <button *ngIf="category.default && category.default != ''" [routerLink]="['/', category.id, category.default, 'create']" md-raised-button>{{category.action1label}}</button>
                 <button *ngIf="!category.default" [routerLink]="['/', category.id, 'create']" md-button>{{category.action1label}}</button>
                 <button md-button>{{category.action2label}}</button>
             </md-card-actions>

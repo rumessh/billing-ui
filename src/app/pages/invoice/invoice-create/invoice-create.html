@@ -20,7 +20,7 @@
             Invoice date is <strong>required</strong>
           </md-error>
         </md-input-container>
-        <md-datepicker #datePicker></md-datepicker>    
+        <md-datepicker touchUi="{{isMobile}}" #datePicker></md-datepicker>    
         <md-input-container>
           <input type="text" placeholder="Overall Discount" mdInput formControlName="discount">
         </md-input-container>    
@@ -31,8 +31,8 @@
         <textarea type="textarea" placeholder="Notes" mdInput formControlName="invoiceNotes"></textarea>
       </md-input-container>
       <md-card-actions>
-        <button md-button [disabled]="invoicedProductList.length < 1" type="submit">Save</button>
-        <button md-button type="reset" (click)="revert()">Reset</button>
+        <button md-raised-button [disabled]="invoicedProductList.length < 1 || !createInvoiceForm.valid" type="submit">Save</button>
+        <button md-raised-button type="reset" (click)="revert()">Reset</button>
       </md-card-actions>
     </form>
   </md-card>

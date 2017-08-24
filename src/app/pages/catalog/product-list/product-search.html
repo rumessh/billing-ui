@@ -26,7 +26,7 @@
             </md-error>
         </md-input-container>
 
-        <button *ngIf="!isAddEnabled" type="button" md-button (click)="searchProduct()">Search</button>
-        <button *ngIf="isAddEnabled" type="button" md-button (click)="addProduct()">Add</button>
+        <button *ngIf="!isAddEnabled" type="button" md-raised-button (click)="searchProduct()">Search</button>
+        <button *ngIf="isAddEnabled" type="button" md-raised-button (click)="addProduct()">Add</button>
     </form>
 </div>

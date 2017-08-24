@@ -23,4 +23,8 @@ export class PageUtil {
   set sidenav(sidenav: MdSidenav) {
     this._sidenav = sidenav;
   }
+
+  isMobile(): boolean {
+    return navigator.userAgent.indexOf('Mobi') >= 0;
+  }
 }
