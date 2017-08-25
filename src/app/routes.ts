@@ -51,7 +51,8 @@ export const AppRoutes: Routes = [
         children: [
             { path: '', component: ProductList, pathMatch: 'full' },
             { path: 'category/create', component: CategoryCreate, pathMatch: 'full' },
-            { path: 'product/create', component: ProductCreate, pathMatch: 'full' }
+            { path: 'product/create', component: ProductCreate, pathMatch: 'full' },
+            { path: 'product/:productId', component: ProductCreate, pathMatch: 'full' }
         ]
     },
     {

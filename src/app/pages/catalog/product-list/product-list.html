@@ -2,8 +2,6 @@
   <md-toolbar class="product-list-toolbar">
     <span>Product List</span>
     <span class="big-spacer"></span>
-    <button md-raised-button [routerLink]="['category', 'create']">CREATE CATEGORY</button>
-    <span class="small-spacer"></span>
     <button md-raised-button [routerLink]="['product', 'create']">CREATE PRODUCT</button>
   </md-toolbar>
   <product-search [isAddEnabled]=false (searchedProducts)="searchedProducts($event)"></product-search>
@@ -11,5 +9,6 @@
         [isPaginated]="isPaginated"
         [isSearched]="isSearched"
         [searchData]="productList"
-        [isFilterRequired]="isFilterRequired"></product-list-table>
+        [isFilterRequired]="isFilterRequired"
+        [isTotalsNeeded]="false"></product-list-table>
 </div>

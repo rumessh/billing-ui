@@ -3,7 +3,9 @@
 .product-list-container {
   display: flex;
   flex-direction: column;
-    min-width: 500px;
+  product-search {
+    margin: 5px 0 0 5px;
+  }
 }
 
 .mat-input-container {

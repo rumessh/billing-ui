@@ -5,8 +5,13 @@
   display: flex;
   align-items: baseline;
   padding: 8px 24px 0;
-  font-size: 20px;
+  font-size: 14px;
   justify-content: space-between;
+  
+  .mat-input-container {
+    width: 98%;
+  }
+
 }
 
 .product-list-table-wrapper {

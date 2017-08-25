@@ -1,6 +1,6 @@
 <div *ngIf="isFilterRequired" class="product-list-header">
     <md-input-container floatPlaceholder="never">
-        <input mdInput #filter placeholder="Filter products">
+        <input mdInput #filter placeholder="Filter products by HSN Code/Product Number">
     </md-input-container>
 </div>
 <div class="product-list-table-wrapper">
@@ -9,6 +9,12 @@
             <md-header-cell *cdkHeaderCellDef></md-header-cell>
             <md-cell *cdkCellDef="let row">
                 <md-icon (click)="deleteProduct(row)">delete</md-icon>
+            </md-cell>
+        </ng-container>
+        <ng-container cdkColumnDef="edit">
+            <md-header-cell *cdkHeaderCellDef></md-header-cell>
+            <md-cell *cdkCellDef="let row">
+                <md-icon [routerLink]="['/catalog/product', row.productUuid]">edit</md-icon>
             </md-cell>
         </ng-container>
         <ng-container cdkColumnDef="name">
@@ -82,7 +88,7 @@
         <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
         <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
     </md-table>
-    <table class="total-table">
+    <table *ngIf="isTotalsNeeded" class="total-table">
         <thead class="mat-header-row">
             <th class="mat-header-cell">Total Tax</th>
             <th class="mat-header-cell">Total Discount</th>

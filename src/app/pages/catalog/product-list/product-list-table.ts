@@ -21,6 +21,7 @@ export class ProductListTable implements OnChanges {
     @Input() isFilterRequired: boolean;
     @Input() isTemproraryDelete: boolean;
     @Input() overallDiscount: number;
+    @Input() isTotalsNeeded:boolean = true;
     dataSource: ProductDataSource | null;
     totalEstimatedPrice: number;
 

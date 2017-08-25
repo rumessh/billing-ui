@@ -55,6 +55,15 @@ export class ProductDataPaginated {
             .catch((error: any) => Promise.reject(error.message || error));
     }
 
+    getProduct(productUuid: String): Promise<Product> {
+        const url = '/api/billing/org/'+ this.authService.getOrgUuid() +'/productapi/v1/product/'+productUuid;
+        return this.http
+            .get(url, {headers: headers})
+            .toPromise()
+            .then((response: Response) => Promise.resolve(response.json()))
+            .catch((error: any) => Promise.reject(error.message || error));
+    }
+
     getProductList(start, size): Observable<Product[]> {
         var requestoptions = new RequestOptions({
             method: RequestMethod.Get,
@@ -82,6 +91,15 @@ export class ProductDataPaginated {
         const url = '/api/billing/org/'+ this.authService.getOrgUuid() +'/productapi/v1/product';
         return this.http
             .post(url, JSON.stringify(product), { headers: headers })
+            .toPromise()
+            .then(() => product)
+            .catch((error: any) => Promise.reject(error.message || error));
+    }
+
+    updateProduct(product): Promise<Product> {
+        const url = '/api/billing/org/'+ this.authService.getOrgUuid() +'/productapi/v1/product';
+        return this.http
+            .patch(url, JSON.stringify(product), { headers: headers })
             .toPromise()
             .then(() => product)
             .catch((error: any) => Promise.reject(error.message || error));
@@ -128,6 +146,10 @@ export class CatalogDataService {
         return this.productDataPaginated.createProduct(product);
     }
 
+    updateProduct(product): Promise<Product> {
+        return this.productDataPaginated.updateProduct(product);
+    }
+
     createCategory(category: Category): Promise<Category> {
         return this.productCategoryData.createCategory(category);
     }
@@ -138,6 +160,10 @@ export class CatalogDataService {
 
     searchProduct(productName: String): Promise<Product[]> {
         return this.productDataPaginated.searchProduct(productName);
+    }
+
+    getProduct(productUuid: String): Promise<Product> {
+        return this.productDataPaginated.getProduct(productUuid);
     }
 
     constructor(private http: Http, authService: AuthService) {

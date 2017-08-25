@@ -1,6 +1,6 @@
 <div class="product-create-container">
     <md-card class="product-create-card">
-        <md-card-title>Create Product</md-card-title>
+        <md-card-title>{{flow}} Product</md-card-title>
         <form class="product-create-form" [formGroup]="createProductForm" (ngSubmit)="onSubmit()">
             <md-input-container>
                 <input mdInput placeholder="Product Name" type="text" formControlName="name">
@@ -47,7 +47,7 @@
                 </md-error>
             </md-input-container>
             <md-input-container>
-                <input mdInput placeholder="Description" type="text" formControlName="description" maxlength="55">
+                <input mdInput placeholder="Description" type="text" formControlName="productDescription" maxlength="55">
             </md-input-container>
             <md-input-container>
                 <textarea mdInput placeholder="Keywords" formControlName="keywords"></textarea>

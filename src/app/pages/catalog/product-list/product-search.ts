@@ -50,6 +50,11 @@ export class ProductSearch {
             productName: '',
             quantityRequested: ['', Validators.required]
         });
+       
+        this.catalogDataService.getAllCategories().then((categories) => {
+            this.categories = categories;
+        });
+        
     }
 
     bindValueChanges() {

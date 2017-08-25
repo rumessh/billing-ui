@@ -12,7 +12,7 @@ import {Product} from '../catalog-data/catalog-data';
 })
 export class ProductList {
   constructor() {};
-  displayedColumns = ['name', 'hsnCode', 'productNumber', 'categoryName', 'unitPrice', 'onHandQuantity'];
+  displayedColumns = ['edit', 'name', 'hsnCode', 'productNumber', 'categoryName', 'unitPrice', 'onHandQuantity'];
   isPaginated = true;
   isSearched = false;
   isFilterRequired = true;
