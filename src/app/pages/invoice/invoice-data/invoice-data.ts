@@ -65,7 +65,7 @@ export class InvoiceDataPaginated {
         return this.http
             .post(url, JSON.stringify(invoice), { headers: headers })
             .toPromise()
-            .then(() => invoice)
+            .then((response : Response) => Promise.resolve(response.json()))
             .catch((error: any) => Promise.reject(error.message || error));
     }
 

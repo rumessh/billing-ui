@@ -22,6 +22,7 @@ export class ProductListTable implements OnChanges {
     @Input() isTemproraryDelete: boolean;
     @Input() overallDiscount: number;
     @Input() isTotalsNeeded:boolean = true;
+    @Input() isInvoiceScreen:boolean = false;
     dataSource: ProductDataSource | null;
     totalEstimatedPrice: number;
 
@@ -33,14 +34,14 @@ export class ProductListTable implements OnChanges {
     @ViewChild("filter") filter: ElementRef;
 
     ngAfterViewInit() {
-        this.dataSource = new ProductDataSource(this.paginator, this.catalogDataService, this.isSearched, this.searchData);
+        this.dataSource = new ProductDataSource(this.paginator, this.catalogDataService, this.isSearched, this.searchData, this.isInvoiceScreen);
         setTimeout(() => this.cd.markForCheck());
     }
 
     ngOnChanges(changes: SimpleChanges) {
         for (let propName in changes) {
             if (propName === 'searchData') {
-                this.dataSource = new ProductDataSource(this.paginator, this.catalogDataService, this.isSearched, this.searchData);
+                this.dataSource = new ProductDataSource(this.paginator, this.catalogDataService, this.isSearched, this.searchData, this.isInvoiceScreen);
                 break;
             }
             else if(propName === 'overallDiscount') {
@@ -50,7 +51,7 @@ export class ProductListTable implements OnChanges {
     }
 
     onPaginateChange(event) {
-        this.dataSource = new ProductDataSource(this.paginator, this.catalogDataService, this.isSearched, this.searchData);
+        this.dataSource = new ProductDataSource(this.paginator, this.catalogDataService, this.isSearched, this.searchData, this.isInvoiceScreen);
     }
 
     getSearchData(): Product[] {
@@ -85,7 +86,7 @@ export class ProductListTable implements OnChanges {
                     this.searchData.splice(i, 1);
                 }
             }
-            this.dataSource = new ProductDataSource(this.paginator, this.catalogDataService, this.isSearched, this.searchData);
+            this.dataSource = new ProductDataSource(this.paginator, this.catalogDataService, this.isSearched, this.searchData, this.isInvoiceScreen);
         }
         else {
             //TODO: Handle server side product delete.
@@ -100,7 +101,8 @@ export class ProductDataSource extends DataSource<any> {
     constructor(private _paginator: MdPaginator,
         private catalogDataService: CatalogDataService,
         private isSearched: boolean,
-        private searchData: Product[]) {
+        private searchData: Product[],
+        private isInvoiceScreen: boolean) {
         super();
     }
 
@@ -127,14 +129,14 @@ export class ProductDataSource extends DataSource<any> {
         };
 
         this.totals = this.searchData.length > 0 ? this.searchData.reduce((totals: Totals, product) => {
-            let itemTotal = product['unitPrice'] * product['quantityRequested'];
+            let totalItem = this.isInvoiceScreen ? product['invoicedQuantity'] : product['quantityRequested']
+            let itemTotal = product['itemTotal']  = product['unitPrice'] * totalItem;
             let itemTax = product['taxAmount'] = product['taxPercentage'] * itemTotal / 100;
             let itemDiscount = product['discount'] = product['discount'] ? product['discount'] : 0;
-            product['itemTotal'] = itemTax + itemTotal;
 
             totals.totalDiscount = totals.totalDiscount + itemDiscount;            
             totals.totalTax = totals.totalTax + itemTax;
-            totals.totalAmount = totals.totalAmount + itemTotal + totals.totalTax - totals.totalDiscount;
+            totals.totalAmount = totals.totalAmount + itemTotal;
             return totals;
         }, this.totals) : this.totals;
     }

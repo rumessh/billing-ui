@@ -107,7 +107,8 @@ export class InvoiceCreate {
 
   onSubmit() {
     const invoice = this.prepareSaveInvoice();
-    this.invoiceDataService.createInvoice(invoice).then(() => {
+    this.invoiceDataService.createInvoice(invoice).then((invoice) => {
+      window.open("/api/billing/org/"+ this.authService.getOrgUuid() +"/invoiceapi/v1/invoice/"+invoice.invoiceUuid, "_blank");
       let snackbarRef = this.snackbar.open('Invoice created successfully', 'Done');
       snackbarRef.afterDismissed().subscribe(() => {
         this.goBack();
