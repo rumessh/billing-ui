@@ -1,8 +1,17 @@
 import {NgModule} from '@angular/core';
-import {MaterialModule, MdPaginatorModule, MdInputModule, MdButtonModule, MdTableModule, MdPaginator, PageEvent } from '@angular/material';
+import {
+  MaterialModule, 
+  MdPaginatorModule, 
+  MdInputModule, 
+  MdButtonModule, 
+  MdTableModule, 
+  MdPaginator, 
+  PageEvent, 
+  MdExpansionModule 
+} from '@angular/material';
 import {PageUtil} from '../../shared/page-util/page-util';
 import {SideNavModule} from '../../shared/sidenav/sidenav';
-import {CdkTableModule} from '@angular/cdk';
+import {CdkTableModule} from '@angular/cdk/table';
 import {HttpModule} from '@angular/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common';  

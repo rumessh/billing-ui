@@ -6,7 +6,7 @@ import 'rxjs/add/operator/toPromise';
 import { Product } from '../../catalog/catalog-data/catalog-data';
 import {AuthService} from '../../../shared/auth-service/auth-service';
 import { Customer } from '../../customer/customer-data/customer-data';
-
+import { PageUtil } from '../../../shared/page-util/page-util';
 
 export interface Order {
     orderUuid?: String,
@@ -18,7 +18,7 @@ export interface Order {
     status: String,
     orderNotes?: String,
     orderLineItems: Product[],
-    neededByDate: String,
+    neededByDate: string,
     customer?: Customer,
     orderNumber?: String
 }
@@ -55,7 +55,7 @@ export class OrderDataPaginated {
 
     extractData(result: Response): any {
         if (result.status == 200) {
-            this.totalCount = result.json().length;
+            this.pageUtil.totalCount = parseInt(result.headers.get('x-total-count'), 10);
             return result.json();
         }
         else {
@@ -88,7 +88,7 @@ export class OrderDataPaginated {
             .catch((error: any) => Promise.reject(error.message || error));
     }
 
-    constructor(private http: Http, private authService: AuthService) { }
+    constructor(private http: Http, private authService: AuthService, private pageUtil: PageUtil) { }
 }
 
 @Injectable()
@@ -112,7 +112,7 @@ export class OrderDataService {
         return this.orderDataPaginated.searchOrder(orderNumber, customerUuid);
     }
 
-    constructor(private http: Http, private authService: AuthService) {
-        this.orderDataPaginated = new OrderDataPaginated(http, authService);
+    constructor(private http: Http, private authService: AuthService, private pageUtil: PageUtil) {
+        this.orderDataPaginated = new OrderDataPaginated(http, authService, pageUtil);
     }
 }

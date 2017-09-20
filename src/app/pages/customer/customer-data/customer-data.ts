@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import { AuthService } from '../../../shared/auth-service/auth-service';
+import { PageUtil } from '../../../shared/page-util/page-util';
 
 export interface Customer {
     customerUuid?: String;
@@ -11,6 +12,7 @@ export interface Customer {
     phone: String;
     orgUuid: String;
     addressUuid?: String;
+    address: any;
 }
 
 export class CustomerDataPaginated {
@@ -35,11 +37,11 @@ export class CustomerDataPaginated {
     }
 
     extractData(result: Response): any {
-        this.totalCount = result.json().length;
+        this.pageUtil.totalCount = parseInt(result.headers.get('x-total-count'), 10);
         return result.json();
     }
 
-    constructor(private http: Http, private authService: AuthService) { }
+    constructor(private http: Http, private authService: AuthService, private pageUtil: PageUtil) { }
 }
 
 @Injectable()
@@ -67,7 +69,7 @@ export class CustomerDataService {
     }
 
     getCustomerPagenated(start: number, size: number): Observable<Customer[]> {
-        this.customerDataPaginated = new CustomerDataPaginated(this.http, this.authService);
+        this.customerDataPaginated = new CustomerDataPaginated(this.http, this.authService, this.pageUtil);
         return this.customerDataPaginated.getCustomerList(start, size);
     }
 
@@ -85,5 +87,5 @@ export class CustomerDataService {
         return Promise.reject(error.message || error);
     }
 
-    constructor(private http: Http, private authService: AuthService) { }
+    constructor(private http: Http, private authService: AuthService, private pageUtil: PageUtil) { }
 }

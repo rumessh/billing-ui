@@ -61,7 +61,7 @@ export class InvoiceCreate {
   buildCreateInvoiceForm(customerId: String, orderUuid: String) {
 
     this.createInvoiceForm = this.formBuilder.group({
-      invoiceDate: ['', Validators.required],
+      invoiceDate: [new Date(), Validators.required],
       customer: [{ value: '', disabled: true }, Validators.required],
       orderNumber: ['', Validators.required],
       discount: [''],

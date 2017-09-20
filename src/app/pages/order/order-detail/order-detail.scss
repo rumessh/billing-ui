@@ -4,13 +4,13 @@
   display: flex;
   flex-direction: column;
 
-  .mat-input-container {
+  .mat-form-field {
       margin: 5px;
       width: 95%
     }
 
   .order-detail-top-section {
-    .mat-input-container {
+    .mat-form-field {
       margin-right: 10px;
       width: 45%;
       @media (max-width: $small-breakpoint-width) {
@@ -24,7 +24,7 @@
     .mat-select {
       width: 30%;
     }
-    .mat-input-container {
+    .mat-form-field {
       width: 40%;
     }
   }

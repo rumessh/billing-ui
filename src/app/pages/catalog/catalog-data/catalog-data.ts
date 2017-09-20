@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import { AuthService } from '../../../shared/auth-service/auth-service';
+import { PageUtil } from '../../../shared/page-util/page-util';
 
 export interface Product {
     productUuid?: String,
@@ -79,7 +80,7 @@ export class ProductDataPaginated {
 
     extractData(result: Response): any {
         if (result.status == 200) {
-            this.totalCount = result.json().length;
+            this.pageUtil.totalCount = parseInt(result.headers.get('x-total-count'), 10);
             return result.json();
         }
         else {
@@ -105,7 +106,7 @@ export class ProductDataPaginated {
             .catch((error: any) => Promise.reject(error.message || error));
     }
 
-    constructor(private http: Http, private authService: AuthService) { }
+    constructor(private http: Http, private authService: AuthService, private pageUtil: PageUtil) { }
 }
 
 export class ProductCategoryData {
@@ -129,7 +130,7 @@ export class ProductCategoryData {
             .catch((error: any) => Promise.reject(error.message || error));
     }
 
-    constructor(private http: Http, private authService: AuthService) { }
+    constructor(private http: Http, private authService: AuthService, private pageUtil: PageUtil) { }
 }
 
 @Injectable()
@@ -166,8 +167,8 @@ export class CatalogDataService {
         return this.productDataPaginated.getProduct(productUuid);
     }
 
-    constructor(private http: Http, authService: AuthService) {
-        this.productDataPaginated = new ProductDataPaginated(http, authService);
-        this.productCategoryData = new ProductCategoryData(http, authService);
+    constructor(private http: Http, authService: AuthService, pageUtil: PageUtil) {
+        this.productDataPaginated = new ProductDataPaginated(http, authService, pageUtil);
+        this.productCategoryData = new ProductCategoryData(http, authService, pageUtil);
     }
 }

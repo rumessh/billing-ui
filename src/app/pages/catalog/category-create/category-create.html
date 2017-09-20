@@ -3,12 +3,12 @@
     <md-card-title>Create Category</md-card-title>
     <form class="category-create-form"
       [formGroup]="createCategoryForm" (ngSubmit)="onSubmit()">
-      <md-input-container>
+      <md-form-field>
         <input mdInput placeholder="Name" type="text" formControlName="name" placeholder="Name">
         <md-error *ngIf="createCategoryForm.get('name').hasError('required')">
           Name is <strong>required</strong>
         </md-error>
-      </md-input-container>
+      </md-form-field>
       <md-card-actions>
         <button md-raised-button type="submit">Save</button>
         <button md-raised-button type="reset" (click)="revert()">Reset</button>

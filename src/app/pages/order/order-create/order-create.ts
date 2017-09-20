@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Order, OrderDataService } from '../order-data/order-data';
 import { Location } from '@angular/common';
-import { MdInputModule, MdButtonModule, MdSnackBar, DateAdapter } from '@angular/material';
+import { MdInputModule, MdButtonModule, MdSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Customer, CustomerDataService } from '../../customer/customer-data/customer-data';
 import { CustomerSearch } from '../../customer/customer-list/customer-search';
@@ -42,9 +42,7 @@ export class OrderCreate {
     route: ActivatedRoute,
     private customerDataService: CustomerDataService,
     private authService: AuthService,
-    private dateAdapter: DateAdapter<Date>,
     private pageUtil: PageUtil) {
-    this.dateAdapter.setLocale('in');
     let customerId;
     route.parent.params.subscribe((params) => {
       customerId = params.customerId
@@ -58,7 +56,7 @@ export class OrderCreate {
   buildCreateOrderForm(customerId: String) {
 
     this.createOrderForm = this.formBuilder.group({
-      neededByDate: ['', Validators.required],
+      neededByDate: [new Date(), Validators.required],
       customer: [{ value: '', disabled: true }, Validators.required],
       category: [''],
       productName: [''],

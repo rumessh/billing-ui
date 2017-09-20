@@ -3,25 +3,26 @@
         <md-card-title>Create Order</md-card-title>
         <form class="order-create-form" [formGroup]="createOrderForm" (ngSubmit)="onSubmit()">
             <div class="order-create-top-section">
-                <!-- <md-input-container>
+                <!-- <md-form-field>
                     <input type="text" placeholder="Customer" mdInput formControlName="customer">
-                </md-input-container> -->
+                </md-form-field> -->
                 <customer-search class="customer-search" (customerSearched)="customerSearched($event)"></customer-search>
-                <md-input-container>
+                <md-form-field>
                     <input mdInput placeholder="Needed By Date" [mdDatepicker]="datePicker" formControlName="neededByDate" />
-                    <button mdSuffix [mdDatepickerToggle]="datePicker"></button>
+                    <md-datepicker-toggle mdSuffix [for]="datePicker"></md-datepicker-toggle>
+                    <md-datepicker #datePicker touchUi="{{isMobile}}" ></md-datepicker>
                     <md-error *ngIf="createOrderForm.get('neededByDate').hasError('required')">
                         Needed by date is <strong>required</strong>
                     </md-error>
-                </md-input-container>
-                <md-datepicker #datePicker touchUi="{{isMobile}}" ></md-datepicker>
+                </md-form-field>
+                
             </div>
             <product-search [isAddEnabled]="true" (productAdded)="productAdded($event)"></product-search>
             <product-list-table *ngIf="orderedProductList.length > 0" [displayedColumns]="displayedColumns" [isSearched]="isSearched" [isPaginated]="isPaginated" [searchData]="orderedProductList"
                 [isFilterRequired]="isFilterRequired" [isTemproraryDelete]="true"></product-list-table>
-            <md-input-container>
+            <md-form-field>
                 <textarea type="textarea" placeholder="Notes" mdInput formControlName="orderNotes"></textarea>
-            </md-input-container>
+            </md-form-field>
             <md-card-actions>
                 <button md-raised-button [disabled]="orderedProductList.length < 1 || !createOrderForm.valid" type="submit">Save</button>
                 <button md-raised-button type="reset" (click)="revert()">Reset</button>

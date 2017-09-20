@@ -3,9 +3,19 @@
   display: flex;
   flex-direction: column;
 
-  md-input-container {
+  md-form-field {
     margin: 5px;
     width: 95%
+  }
+
+  .mat-expansion-panel-header-title, 
+  .mat-expansion-panel-header-description {
+    flex-basis: 0;
+  }
+
+  .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
   }
 
 }

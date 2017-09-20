@@ -4,13 +4,13 @@
   display: flex;
   flex-direction: column;
 
-  .mat-input-container {
+  .mat-form-field {
       margin: 5px;
       width: 95%
     }
 
   .invoice-create-top-section {
-    customer-search, order-search, .mat-input-container {
+    customer-search, order-search, .mat-form-field {
       display: inline-block;
       @extend %half-width-input;
     }

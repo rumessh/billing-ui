@@ -1,7 +1,7 @@
 <form class="customer-search-form" [formGroup]="searchCustomerForm">
-    <md-input-container>
+    <md-form-field>
         <input type="text" placeholder="Customer Name" mdInput formControlName="customerName" [mdAutocomplete]="customerNameAuto">
-    </md-input-container>
+    </md-form-field>
     <md-autocomplete [displayWith]="customerAutoDisplay" #customerNameAuto="mdAutocomplete">
         <md-option (onSelectionChange)="customerSelected(customer)" *ngFor="let customer of customerSuggestionList" [value]="customer">
             {{ customer.name }} : {{ customer.phone }}

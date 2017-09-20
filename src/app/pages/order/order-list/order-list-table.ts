@@ -1,10 +1,11 @@
 import { Component, AfterViewInit, ChangeDetectorRef, ViewChild, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MdPaginatorModule, MdInputModule, MdTableModule, MdPaginator, MdDialog, MdDialogRef, MdTooltip, PageEvent } from '@angular/material';
-import { DataSource } from '@angular/cdk';
+import { DataSource } from '@angular/cdk/table';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
 import { OrderDataService, Order } from '../order-data/order-data';
+import { PageUtil } from '../../../shared/page-util/page-util';
 
 
 @Component({
@@ -23,7 +24,8 @@ export class OrderListTable implements OnChanges {
 
     constructor(private cd: ChangeDetectorRef,
         private orderDataService: OrderDataService,
-        public dialog: MdDialog) { }
+        public dialog: MdDialog,
+        public pageUtil: PageUtil) { }
 
     @ViewChild(MdPaginator) paginator: MdPaginator;
     @ViewChild("filter") filter: ElementRef;

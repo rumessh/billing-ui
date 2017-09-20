@@ -2,56 +2,56 @@
     <md-card class="product-create-card">
         <md-card-title>{{flow}} Product</md-card-title>
         <form class="product-create-form" [formGroup]="createProductForm" (ngSubmit)="onSubmit()">
-            <md-input-container>
+            <md-form-field>
                 <input mdInput placeholder="Product Name" type="text" formControlName="name">
                 <md-error *ngIf="createProductForm.get('name').hasError('required')">
                     Name is <strong>required</strong>
                 </md-error>
-            </md-input-container>
+            </md-form-field>
             <md-select placeholder="Product Category" formControlName="category">
                 <md-option *ngFor="let category of categories" [value]="category">{{ category.name }}</md-option>
             </md-select>
             <md-error *ngIf="createProductForm.get('category').value === undefined">
                     Category is <strong>required</strong>
             </md-error>
-            <md-input-container>
+            <md-form-field>
                 <input mdInput placeholder="Product Number" type="text" formControlName="productNumber" maxlength="35">
-            </md-input-container>
-            <md-input-container>
+            </md-form-field>
+            <md-form-field>
                 <input mdInput placeholder="Unit price" type="number" formControlName="unitPrice" maxlength="20">
                 <md-error *ngIf="createProductForm.get('unitPrice').hasError('required')">
                     Unit price is <strong>required</strong>
                 </md-error>
-            </md-input-container>
-            <md-input-container>
+            </md-form-field>
+            <md-form-field>
                 <input type="text" placeholder="HSN Code" mdInput formControlName="hsnCode" [mdAutocomplete]="hsnCodeAuto">
                 <md-error *ngIf="createProductForm.get('hsnCode').hasError('required')">
                     HSN Code is <strong>required</strong>
                 </md-error>
-            </md-input-container>
+            </md-form-field>
             <md-autocomplete #hsnCodeAuto="mdAutocomplete">
                 <md-option *ngFor="let hsnCode of filterHsnOptions | async" [value]="hsnCode">
                     {{ hsnCode }}
                 </md-option>
             </md-autocomplete>
-            <md-input-container>
+            <md-form-field>
                 <input type="text" placeholder="Tax percentage" mdInput formControlName="taxPercentage">
                 <md-error *ngIf="createProductForm.get('taxPercentage').hasError('required')">
                     Tax percentage is <strong>required</strong>
                 </md-error>
-            </md-input-container>
-            <md-input-container>
+            </md-form-field>
+            <md-form-field>
                 <input mdInput placeholder="On Hand Quantity" type="number" formControlName="onHandQuantity" maxlength="10">
                 <md-error *ngIf="createProductForm.get('onHandQuantity').hasError('required')">
                     On hand quantity is <strong>required</strong>
                 </md-error>
-            </md-input-container>
-            <md-input-container>
+            </md-form-field>
+            <md-form-field>
                 <input mdInput placeholder="Description" type="text" formControlName="productDescription" maxlength="55">
-            </md-input-container>
-            <md-input-container>
+            </md-form-field>
+            <md-form-field>
                 <textarea mdInput placeholder="Keywords" formControlName="keywords"></textarea>
-            </md-input-container>
+            </md-form-field>
             <md-card-actions>
                 <button md-raised-button [disabled]="!createProductForm.valid" type="submit">Save</button>
                 <button md-raised-button type="reset" (click)="revert()">Reset</button>

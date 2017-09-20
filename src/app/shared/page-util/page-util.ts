@@ -7,6 +7,8 @@ import {MdSidenav} from '@angular/material';
 @Injectable()
 export class PageUtil {
   _title = '';
+  _totalCount = 0;
+  _pageSize = 20;
   _sidenav: MdSidenav | null;
 
   get title(): string { return this._title; }
@@ -16,6 +18,22 @@ export class PageUtil {
     if (title !== '') {
       title = `${title} | `;
     }
+  }
+
+  get totalCount(): number {
+    return this._totalCount;
+  }
+
+  set totalCount(totalCount: number) {
+    this._totalCount = totalCount;
+  }
+
+  get pageSize(): number {
+    return this._pageSize;
+  }
+
+  set pageSize(pageSize: number) {
+    this._pageSize = pageSize;
   }
 
   get sidenav(): MdSidenav { return this._sidenav; }

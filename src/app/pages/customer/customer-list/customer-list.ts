@@ -1,6 +1,6 @@
 import {Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef} from '@angular/core';
 import {MdPaginatorModule, MdInputModule, MdButtonModule, MdTableModule, MdPaginator, PageEvent } from '@angular/material';
-import {DataSource} from '@angular/cdk';
+import {DataSource} from '@angular/cdk/table';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/startWith';
@@ -10,6 +10,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 
 import {CustomerDataService} from '../customer-data/customer-data';
+import { PageUtil } from '../../../shared/page-util/page-util';
 
 @Component({
   selector: 'customer-list',
@@ -18,7 +19,7 @@ import {CustomerDataService} from '../customer-data/customer-data';
 })
 export class CustomerList {
   constructor(private cd: ChangeDetectorRef,
-              private customerDataService: CustomerDataService) { }
+              private customerDataService: CustomerDataService, public pageUtil: PageUtil) { }
   displayedColumns = ['name', 'phone'];
   dataSource: CustomerDataSource | null;
   pageEvent: PageEvent;

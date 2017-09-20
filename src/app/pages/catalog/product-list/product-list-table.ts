@@ -1,12 +1,12 @@
 import { Component, AfterViewInit, ChangeDetectorRef, ViewChild, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MdPaginatorModule, MdInputModule, MdTableModule, MdPaginator, MdDialog, MdDialogRef } from '@angular/material';
-import { DataSource } from '@angular/cdk';
+import { DataSource } from '@angular/cdk/table';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { UpdateDialog } from './update-dialog';
 
 import { CatalogDataService, Product, Totals } from '../catalog-data/catalog-data';
-
+import { PageUtil } from '../../../shared/page-util/page-util';
 
 @Component({
     selector: 'product-list-table',
@@ -28,20 +28,22 @@ export class ProductListTable implements OnChanges {
 
     constructor(private cd: ChangeDetectorRef,
         private catalogDataService: CatalogDataService,
-        public dialog: MdDialog) { }
+        public dialog: MdDialog,
+        private pageUtil: PageUtil) { }
 
     @ViewChild(MdPaginator) paginator: MdPaginator;
     @ViewChild("filter") filter: ElementRef;
 
-    ngAfterViewInit() {
+    ngOnInit() {
         this.dataSource = new ProductDataSource(this.paginator, this.catalogDataService, this.isSearched, this.searchData, this.isInvoiceScreen);
+        this.dataSource.updateTotals();
         setTimeout(() => this.cd.markForCheck());
     }
 
     ngOnChanges(changes: SimpleChanges) {
         for (let propName in changes) {
-            if (propName === 'searchData') {
-                this.dataSource = new ProductDataSource(this.paginator, this.catalogDataService, this.isSearched, this.searchData, this.isInvoiceScreen);
+            if (propName === 'searchData' && this.dataSource ) {
+                this.dataSource.updateTotals();
                 break;
             }
             else if(propName === 'overallDiscount') {
@@ -108,7 +110,6 @@ export class ProductDataSource extends DataSource<any> {
 
     connect(): Observable<any[]> {
         if (this.isSearched) {
-            this.updateTotals();
             return Observable.of(this.searchData);
         }
         else {

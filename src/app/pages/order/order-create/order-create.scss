@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
 
-  .mat-input-container {
+  .mat-form-field {
       margin: 5px;
       width: 95%
     }
@@ -13,7 +13,7 @@
     .customer-search {
       display: inline-block;
     }
-    .customer-search, .mat-input-container {
+    .customer-search, .mat-form-field {
       @extend %half-width-input;
     }
   }
@@ -22,7 +22,7 @@
     .mat-select {
       width: 30%;
     }
-    .mat-input-container {
+    .mat-form-field {
       width: 40%;
     }
   }

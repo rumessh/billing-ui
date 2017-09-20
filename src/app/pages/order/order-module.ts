@@ -6,7 +6,7 @@ import {OrderDataService} from './order-data/order-data'
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common'; 
 import {RouterModule} from '@angular/router';
-import {CdkTableModule} from '@angular/cdk';
+import {CdkTableModule} from '@angular/cdk/table';
 import {CatalogModule} from '../catalog/catalog.module';
 import {OrderList} from './order-list/order-list';
 import {OrderListTable} from './order-list/order-list-table';

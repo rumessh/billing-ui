@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {AppRoutes} from './routes';
 
@@ -27,7 +27,7 @@ import { InvoiceModule } from './pages/invoice/invoice.module';
     OrderModule,
     InvoiceModule
   ],
-  providers: [PageUtil, AuthService],
+  providers: [PageUtil, AuthService, {provide: LOCALE_ID, useValue: 'en-IN'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -8,6 +8,7 @@ import { Product } from '../../catalog/catalog-data/catalog-data';
 import { ProductListTable } from '../../catalog/product-list/product-list-table';
 
 import { AuthService } from '../../../shared/auth-service/auth-service';
+import * as moment from 'moment';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
@@ -46,7 +47,7 @@ export class OrderDetail {
     buildOrderDetailForm(orderUuid: String) {
 
         this.detailOrderForm = this.formBuilder.group({
-            neededByDate: ['', Validators.required],
+            neededByDate: [new Date(), Validators.required],
             customer: [{ value: '', disabled: true }, Validators.required],
             orderNotes: ['']
         });
@@ -55,6 +56,7 @@ export class OrderDetail {
             .then((order) => {
                 this.orderDetail = order;
                 this.detailOrderForm.get('customer').setValue(order.customer.name);
+                this.detailOrderForm.get('neededByDate').setValue(moment(order.neededByDate, 'DD/MM/yyyy').toDate())
             });
 
     }
