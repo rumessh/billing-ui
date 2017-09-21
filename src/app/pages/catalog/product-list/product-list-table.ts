@@ -2,6 +2,7 @@ import { Component, AfterViewInit, ChangeDetectorRef, ViewChild, ElementRef, Inp
 import { MdPaginatorModule, MdInputModule, MdTableModule, MdPaginator, MdDialog, MdDialogRef } from '@angular/material';
 import { DataSource } from '@angular/cdk/table';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/observable/of';
 import { UpdateDialog } from './update-dialog';
 
@@ -16,7 +17,12 @@ import { PageUtil } from '../../../shared/page-util/page-util';
 export class ProductListTable implements OnChanges {
     @Input() displayedColumns: String[];
     @Input() isSearched: boolean;
-    @Input() searchData: Product[];
+    @Input() set searchData(searchData: Product[]) {
+        this.productDataObservable.next(searchData);
+    }
+    get searchData() {
+        return this.productDataObservable.getValue();
+    }
     @Input() isPaginated: boolean;
     @Input() isFilterRequired: boolean;
     @Input() isTemproraryDelete: boolean;
@@ -25,6 +31,7 @@ export class ProductListTable implements OnChanges {
     @Input() isInvoiceScreen:boolean = false;
     dataSource: ProductDataSource | null;
     totalEstimatedPrice: number;
+    productDataObservable: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>([]);
 
     constructor(private cd: ChangeDetectorRef,
         private catalogDataService: CatalogDataService,
@@ -35,25 +42,30 @@ export class ProductListTable implements OnChanges {
     @ViewChild("filter") filter: ElementRef;
 
     ngOnInit() {
-        this.dataSource = new ProductDataSource(this.paginator, this.catalogDataService, this.isSearched, this.searchData, this.isInvoiceScreen);
-        this.dataSource.updateTotals();
-        setTimeout(() => this.cd.markForCheck());
+        this.dataSource = new ProductDataSource(this.paginator, this.catalogDataService, this.isSearched, this.productDataObservable, this.isInvoiceScreen);
+        this.productDataObservable.subscribe(() => this.dataSource.updateTotals());
+    }
+
+    ngAfterViewInit() {
+        /** Not a search flow. Make service call to get paginated products */
+        if(!this.isSearched) {
+            this.onPaginateChange(this.paginator.pageIndex, this.paginator.pageSize)
+        }
     }
 
     ngOnChanges(changes: SimpleChanges) {
         for (let propName in changes) {
-            if (propName === 'searchData' && this.dataSource ) {
-                this.dataSource.updateTotals();
-                break;
-            }
-            else if(propName === 'overallDiscount') {
+            if(propName === 'overallDiscount') {
                 this.dataSource.totals.totalDiscount = this.dataSource.totals.totalDiscount + this.overallDiscount;
             }
         }
     }
 
-    onPaginateChange(event) {
-        this.dataSource = new ProductDataSource(this.paginator, this.catalogDataService, this.isSearched, this.searchData, this.isInvoiceScreen);
+    onPaginateChange(pageIndex, pageSize) {
+        const start = pageIndex * pageSize;
+        this.catalogDataService.getProductPagenated(start, pageSize).subscribe(productList => {
+            this.productDataObservable.next(productList);
+        });
     }
 
     getSearchData(): Product[] {
@@ -88,7 +100,7 @@ export class ProductListTable implements OnChanges {
                     this.searchData.splice(i, 1);
                 }
             }
-            this.dataSource = new ProductDataSource(this.paginator, this.catalogDataService, this.isSearched, this.searchData, this.isInvoiceScreen);
+            this.productDataObservable.next(this.searchData);
         }
         else {
             //TODO: Handle server side product delete.
@@ -103,20 +115,13 @@ export class ProductDataSource extends DataSource<any> {
     constructor(private _paginator: MdPaginator,
         private catalogDataService: CatalogDataService,
         private isSearched: boolean,
-        private searchData: Product[],
+        private productDataObservable: BehaviorSubject<Product[]>,
         private isInvoiceScreen: boolean) {
         super();
     }
 
     connect(): Observable<any[]> {
-        if (this.isSearched) {
-            return Observable.of(this.searchData);
-        }
-        else {
-            const start = this._paginator.pageIndex * this._paginator.pageSize;
-            const size = this._paginator.pageSize;
-            return this.catalogDataService.getProductPagenated(start, size);
-        }
+        return this.productDataObservable;
     }
 
     updateTotals() {
@@ -129,7 +134,7 @@ export class ProductDataSource extends DataSource<any> {
             overAllDiscount: 0
         };
 
-        this.totals = this.searchData.length > 0 ? this.searchData.reduce((totals: Totals, product) => {
+        this.totals = this.productDataObservable.getValue().length > 0 ? this.productDataObservable.getValue().reduce((totals: Totals, product) => {
             let totalItem = this.isInvoiceScreen ? product['invoicedQuantity'] : product['quantityRequested']
             let itemTotal = product['itemTotal']  = product['unitPrice'] * totalItem;
             let itemTax = product['taxAmount'] = product['taxPercentage'] * itemTotal / 100;
@@ -146,6 +151,10 @@ export class ProductDataSource extends DataSource<any> {
         this.totals.overAllDiscount = overAllDiscount;
         this.totals.totalDiscount += overAllDiscount;
         this.totals.totalAmount -= overAllDiscount;
+    }
+
+    setIsSearched(isSearched : boolean){
+        this.isSearched = isSearched;
     }
     
     disconnect() { }

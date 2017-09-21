@@ -103,5 +103,5 @@
         </tbody>
     </table>
 </div>
-<md-paginator #paginator [ngClass]="{'hide' : !isPaginated}" [length]="pageUtil.totalCount" [pageIndex]="0" [pageSize]="pageUtil.pageSize" [pageSizeOptions]="[15, 20]" (page)="pageEvent = $event; onPaginateChange($event)">
+<md-paginator #paginator [ngClass]="{'hide' : !isPaginated}" [length]="pageUtil.totalCount" [pageIndex]="0" [pageSize]="pageUtil.pageSize" [pageSizeOptions]="[15, 20]" (page)="pageEvent = $event; onPaginateChange($event.pageIndex, $event.pageSize)">
 </md-paginator>
