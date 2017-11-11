@@ -1,7 +1,8 @@
 import {Component, EventEmitter, ViewChild, NgModule, Output} from '@angular/core';
 import 'rxjs/add/operator/first';
 import {PageUtil} from '../page-util/page-util';
-import { MdButtonModule, MdMenuModule, MdToolbarModule, MdIconModule} from '@angular/material';
+import { MatMenuModule } from '@angular/material';
+import {BaseMaterialModule} from '../../app.material.module';
 
 @Component({
   selector: 'page-header',
@@ -20,10 +21,8 @@ export class PageHeader {
 
 @NgModule({
   imports: [ 
-    MdButtonModule,
-    MdMenuModule,
-    MdToolbarModule,
-    MdIconModule
+    BaseMaterialModule,
+    MatMenuModule
   ],
   exports: [PageHeader],
   declarations: [PageHeader],

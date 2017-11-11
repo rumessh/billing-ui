@@ -1,70 +1,70 @@
 <div class="customer-create-container">
-  <md-toolbar>Create customer</md-toolbar>
+  <mat-toolbar>Create customer</mat-toolbar>
   <div class="customer-create-card">
     <form class="customer-create-form" [formGroup]="createCustomerForm" (ngSubmit)="onSubmit()">
-      <md-accordion>
-        <md-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle="true">
-          <md-expansion-panel-header>
-            <md-panel-title>
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
               Customer Information
-            </md-panel-title>
-            <md-panel-description>
+            </mat-panel-title>
+            <mat-panel-description>
               Enter customer name and phone number
-              <md-icon>account_circle</md-icon>
-            </md-panel-description>
-          </md-expansion-panel-header>
-          <md-form-field>
-            <input mdInput placeholder="Name" type="text" formControlName="name">
-            <md-error *ngIf="createCustomerForm.get('name').hasError('required')">
+              <mat-icon>account_circle</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <input matInput placeholder="Name" type="text" formControlName="name">
+            <mat-error *ngIf="createCustomerForm.get('name').hasError('required')">
               Name is <strong>required</strong>
-            </md-error>
-          </md-form-field>
-          <md-form-field>
-            <input mdInput placeholder="Phone Number" type="phone" formControlName="phone">
-            <md-error *ngIf="createCustomerForm.get('phone').hasError('required')">
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Phone Number" type="phone" formControlName="phone">
+            <mat-error *ngIf="createCustomerForm.get('phone').hasError('required')">
               Phone number is <strong>required</strong>
-            </md-error>
-          </md-form-field>
-          <md-action-row>
-            <button md-button color="primary" type="button" (click)="openAddress()">Give address</button>
-            <button md-raised-button type="submit" [disabled]="!createCustomerForm.valid">Save</button>
-          </md-action-row>
-        </md-expansion-panel>
+            </mat-error>
+          </mat-form-field>
+          <mat-action-row>
+            <button mat-button color="primary" type="button" (click)="openAddress()">Give address</button>
+            <button mat-raised-button type="submit" [disabled]="!createCustomerForm.valid">Save</button>
+          </mat-action-row>
+        </mat-expansion-panel>
 
-        <md-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle="true">
-          <md-expansion-panel-header>
-            <md-panel-title>
+        <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
               Address
-            </md-panel-title>
-            <md-panel-description>
+            </mat-panel-title>
+            <mat-panel-description>
               Enter customer address
-              <md-icon>add_location</md-icon>
-            </md-panel-description>
-          </md-expansion-panel-header>
-          <md-form-field>
-            <input mdInput placeholder="Address Line 1" type="text" formControlName="address1">
-          </md-form-field>
-          <md-form-field>
-            <input mdInput placeholder="Address Line 2" type="text" formControlName="address2">
-          </md-form-field>
-          <md-form-field>
-            <input mdInput placeholder="City" type="text" formControlName="city">
-          </md-form-field>
-          <md-form-field>
-            <input mdInput placeholder="State" type="text" formControlName="state">
-          </md-form-field>
-          <md-form-field>
-            <input mdInput placeholder="Zip code" type="text" formControlName="zipCode">
-          </md-form-field>
-          <md-form-field>
-            <input mdInput placeholder="Country" type="text" formControlName="country">
-          </md-form-field>
-          <md-action-row>
-            <button md-button color="primary" type="button" (click)="openPersonalInfo()">Change personal data</button>
-            <button md-raised-button type="submit" [disabled]="!createCustomerForm.valid">Save</button>
-          </md-action-row>
-        </md-expansion-panel>
-      </md-accordion>
+              <mat-icon>add_location</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <input matInput placeholder="Address Line 1" type="text" formControlName="address1">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Address Line 2" type="text" formControlName="address2">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="City" type="text" formControlName="city">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="State" type="text" formControlName="state">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Zip code" type="text" formControlName="zipCode">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Country" type="text" formControlName="country">
+          </mat-form-field>
+          <mat-action-row>
+            <button mat-button color="primary" type="button" (click)="openPersonalInfo()">Change personal data</button>
+            <button mat-raised-button type="submit" [disabled]="!createCustomerForm.valid">Save</button>
+          </mat-action-row>
+        </mat-expansion-panel>
+      </mat-accordion>
     </form>
   </div>
 </div>

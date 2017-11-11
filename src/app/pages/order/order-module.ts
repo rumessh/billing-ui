@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core'
-import {MaterialModule, MdPaginatorModule, MdInputModule, MdButtonModule, MdTableModule, MdPaginator, PageEvent, MdAutocompleteModule, MdDatepickerModule, MdNativeDateModule, MdTooltipModule } from '@angular/material';
+import { PageEvent, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 import {PageUtil} from '../../shared/page-util/page-util'
 import {OrderCreate} from './order-create/order-create'
 import {OrderDataService} from './order-data/order-data'
@@ -13,24 +13,19 @@ import {OrderListTable} from './order-list/order-list-table';
 import {OrderDetail} from './order-detail/order-detail';
 import { CustomerModule } from '../customer/customer.module';
 import { OrderSearch } from './order-list/order-search';
+import {BaseMaterialModule} from '../../app.material.module';
 
 @NgModule({
     imports: [
-      MaterialModule,
-      MdButtonModule, 
-      MdTableModule, 
-      MdPaginatorModule, 
-      MdInputModule,
+      BaseMaterialModule,
       FormsModule, 
       ReactiveFormsModule,
       CommonModule,
       RouterModule,
-      MdAutocompleteModule,
       CdkTableModule,
       CatalogModule,
-      MdDatepickerModule,
-      MdNativeDateModule,
-      MdTooltipModule,
+      MatDatepickerModule,
+      MatNativeDateModule,
       CustomerModule
     ],
     exports: [OrderSearch],

@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Order, OrderDataService } from '../../order/order-data/order-data';
 import { Location } from '@angular/common';
-import { MdInputModule, MdButtonModule, MdSnackBar, DateAdapter } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Customer } from '../../customer/customer-data/customer-data';
 import { CustomerSearch } from '../../customer/customer-list/customer-search';
@@ -41,7 +41,7 @@ export class InvoiceCreate {
     private formBuilder: FormBuilder,
     private invoiceDataService: InvoiceDataService,
     private location: Location,
-    private snackbar: MdSnackBar,
+    private snackbar: MatSnackBar,
     route: ActivatedRoute,
     private authService: AuthService,
     private orderDataService: OrderDataService,

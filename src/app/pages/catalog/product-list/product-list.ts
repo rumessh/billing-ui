@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {MdInputModule, MdButtonModule} from '@angular/material';
 import {ProductListTable} from './product-list-table';
 import {ProductSearch} from './product-search';
 

@@ -1,13 +1,7 @@
 import {NgModule} from '@angular/core';
 import {
-  MaterialModule, 
-  MdPaginatorModule, 
-  MdInputModule, 
-  MdButtonModule, 
-  MdTableModule, 
-  MdPaginator, 
   PageEvent, 
-  MdExpansionModule 
+  MatExpansionModule 
 } from '@angular/material';
 import {PageUtil} from '../../shared/page-util/page-util';
 import {SideNavModule} from '../../shared/sidenav/sidenav';
@@ -20,20 +14,18 @@ import {CustomerDataService} from './customer-data/customer-data';
 import {CustomerList} from './customer-list/customer-list';
 import {CustomerSearch} from './customer-list/customer-search';
 import {CustomerCreate} from './customer-create/customer-create';
+import {BaseMaterialModule} from '../../app.material.module';
 
 @NgModule({
   imports: [
-      MaterialModule,
-      MdButtonModule, 
+      BaseMaterialModule,
       SideNavModule,
-      MdTableModule, 
       CdkTableModule, 
-      MdPaginatorModule, 
       HttpModule, 
-      MdInputModule,
       FormsModule, 
       ReactiveFormsModule,
-      CommonModule
+      CommonModule,
+      MatExpansionModule
     ],
   exports: [CustomerList, CustomerCreate, CustomerSearch],
   declarations: [CustomerList, CustomerCreate, CustomerSearch],

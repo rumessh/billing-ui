@@ -1,5 +1,5 @@
 import { Component, AfterViewInit, ChangeDetectorRef, ViewChild, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { MdPaginatorModule, MdInputModule, MdTableModule, MdPaginator, MdDialog, MdDialogRef } from '@angular/material';
+import { MatPaginator, MatDialog, MatDialogRef } from '@angular/material';
 import { DataSource } from '@angular/cdk/table';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -35,10 +35,10 @@ export class ProductListTable implements OnChanges {
 
     constructor(private cd: ChangeDetectorRef,
         private catalogDataService: CatalogDataService,
-        public dialog: MdDialog,
-        private pageUtil: PageUtil) { }
+        public dialog: MatDialog,
+        public pageUtil: PageUtil) { }
 
-    @ViewChild(MdPaginator) paginator: MdPaginator;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild("filter") filter: ElementRef;
 
     ngOnInit() {
@@ -112,7 +112,7 @@ export class ProductDataSource extends DataSource<any> {
 
     totals: Totals = {};
 
-    constructor(private _paginator: MdPaginator,
+    constructor(private _paginator: MatPaginator,
         private catalogDataService: CatalogDataService,
         private isSearched: boolean,
         private productDataObservable: BehaviorSubject<Product[]>,

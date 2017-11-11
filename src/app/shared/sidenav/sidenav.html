@@ -1,7 +1,7 @@
 <page-header (toggleSidenav) = "sidenav.toggle()"></page-header>
 <div class="sidenav-outer">
-  <md-sidenav-container class="sidenav-container">
-    <md-sidenav #sidenav class="sidenav"
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav class="sidenav"
                 [opened]="!isScreenSmall()"
                 [mode]="isScreenSmall() ? 'over' : 'side'">
       <nav *ngFor="let category of menuItems.getItemsInCategories()">
@@ -23,10 +23,10 @@
           </li>
         </ul>
       </nav>
-    </md-sidenav>
+    </mat-sidenav>
 
     <div class="sidenav-content">
       <router-outlet></router-outlet>
     </div>
-  </md-sidenav-container>
+  </mat-sidenav-container>
 </div>

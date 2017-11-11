@@ -1,5 +1,5 @@
 import { Component, AfterViewInit, ChangeDetectorRef, ViewChild, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { MdPaginatorModule, MdInputModule, MdTableModule, MdPaginator, MdDialog, MdDialogRef, MdTooltip, PageEvent } from '@angular/material';
+import { MatPaginator, MatDialog, MatDialogRef, PageEvent } from '@angular/material';
 import { DataSource } from '@angular/cdk/table';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
@@ -24,10 +24,10 @@ export class OrderListTable implements OnChanges {
 
     constructor(private cd: ChangeDetectorRef,
         private orderDataService: OrderDataService,
-        public dialog: MdDialog,
+        public dialog: MatDialog,
         public pageUtil: PageUtil) { }
 
-    @ViewChild(MdPaginator) paginator: MdPaginator;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild("filter") filter: ElementRef;
 
     ngAfterViewInit() {
@@ -61,7 +61,7 @@ export class OrderListTable implements OnChanges {
 }
 
 export class OrderDataSource extends DataSource<any> {
-    constructor(private _paginator: MdPaginator,
+    constructor(private _paginator: MatPaginator,
         private orderDataService: OrderDataService,
         private isSearched: boolean,
         private searchData: Order[]) {

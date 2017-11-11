@@ -1,5 +1,4 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { MdInputModule, MdButtonModule } from '@angular/material';
 import { ProductListTable } from './product-list-table';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 

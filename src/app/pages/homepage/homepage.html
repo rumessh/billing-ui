@@ -1,17 +1,17 @@
 <div class="home-container">
-    <md-toolbar class="welcome-header">Welcome home! Choose from the below actions to get started.</md-toolbar>
+    <mat-toolbar class="welcome-header">Welcome home! Choose from the below actions to get started.</mat-toolbar>
     <div class="menu-list">
-        <md-card
+        <mat-card
             *ngFor="let category of menuItems.getItemsInCategories()"
             class="menu-list-card"
             [routerLink]="['/', category.id]">
-            <md-card-title>{{category.name}}</md-card-title>
+            <mat-card-title>{{category.name}}</mat-card-title>
             <p class="menu-list-card-summary">{{category.summary}}</p>
-            <md-card-actions >
-                <button *ngIf="category.default && category.default != ''" [routerLink]="['/', category.id, category.default, 'create']" md-button>{{category.action1label}}</button>
-                <button *ngIf="!category.default" [routerLink]="['/', category.id, 'create']" md-button>{{category.action1label}}</button>
-                <button md-button>{{category.action2label}}</button>
-            </md-card-actions>
-        </md-card>
+            <mat-card-actions >
+                <button *ngIf="category.default && category.default != ''" [routerLink]="['/', category.id, category.default, 'create']" mat-button>{{category.action1label}}</button>
+                <button *ngIf="!category.default" [routerLink]="['/', category.id, 'create']" mat-button>{{category.action1label}}</button>
+                <button mat-button>{{category.action2label}}</button>
+            </mat-card-actions>
+        </mat-card>
     </div>
 </div>

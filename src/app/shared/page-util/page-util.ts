@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {MdSidenav} from '@angular/material';
+import {MatSidenav} from '@angular/material';
 
 /**
  * Service responsible for setting the title that appears above the components and guide pages.
@@ -9,7 +9,7 @@ export class PageUtil {
   _title = '';
   _totalCount = 0;
   _pageSize = 20;
-  _sidenav: MdSidenav | null;
+  _sidenav: MatSidenav | null;
 
   get title(): string { return this._title; }
 
@@ -36,9 +36,9 @@ export class PageUtil {
     this._pageSize = pageSize;
   }
 
-  get sidenav(): MdSidenav { return this._sidenav; }
+  get sidenav(): MatSidenav { return this._sidenav; }
 
-  set sidenav(sidenav: MdSidenav) {
+  set sidenav(sidenav: MatSidenav) {
     this._sidenav = sidenav;
   }
 

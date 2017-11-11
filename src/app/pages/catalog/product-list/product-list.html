@@ -1,9 +1,9 @@
 <div class="product-list-container mat-elevation-z8">
-  <md-toolbar class="product-list-toolbar">
+  <mat-toolbar class="product-list-toolbar">
     <span>Product List</span>
     <span class="big-spacer"></span>
-    <button md-raised-button [routerLink]="['product', 'create']">CREATE PRODUCT</button>
-  </md-toolbar>
+    <button mat-raised-button [routerLink]="['product', 'create']">CREATE PRODUCT</button>
+  </mat-toolbar>
   <product-search [isAddEnabled]=false (searchedProducts)="searchedProducts($event)"></product-search>
   <product-list-table [displayedColumns]="displayedColumns"
         [isPaginated]="isPaginated"

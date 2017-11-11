@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Product, CatalogDataService, Category } from '../catalog-data/catalog-data';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../../../shared/auth-service/auth-service';
 import { omitBy } from 'lodash';
@@ -32,7 +32,7 @@ export class ProductCreate {
     constructor(private formBuilder: FormBuilder,
         private catalogDataService: CatalogDataService,
         private location: Location,
-        private snackbar: MdSnackBar,
+        private snackbar: MatSnackBar,
         private authService: AuthService,
         route: ActivatedRoute) {
         this.catalogDataService.getAllCategories().then((categories) => {

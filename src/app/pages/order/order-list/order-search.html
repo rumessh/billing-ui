@@ -1,10 +1,10 @@
 <form class="order-search-form" [formGroup]="searchOrderForm">
-    <md-form-field>
-        <input type="text" placeholder="Order Number" mdInput formControlName="orderNumber" [mdAutocomplete]="orderNumberAuto">
-    </md-form-field>
-    <md-autocomplete [displayWith]="orderAutoDisplay" #orderNumberAuto="mdAutocomplete">
-        <md-option (onSelectionChange)="orderSelected(order)" *ngFor="let order of orderSuggestionList" [value]="order">
+    <mat-form-field>
+        <input type="text" placeholder="Order Number" matInput formControlName="orderNumber" [matAutocomplete]="orderNumberAuto">
+    </mat-form-field>
+    <mat-autocomplete [displayWith]="orderAutoDisplay" #orderNumberAuto="matAutocomplete">
+        <mat-option (onSelectionChange)="orderSelected(order)" *ngFor="let order of orderSuggestionList" [value]="order">
             {{ order.orderNumber }}
-        </md-option>
-    </md-autocomplete>
+        </mat-option>
+    </mat-autocomplete>
 </form>

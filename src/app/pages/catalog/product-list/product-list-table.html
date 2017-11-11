@@ -1,93 +1,93 @@
 <div *ngIf="isFilterRequired" class="product-list-header">
-    <md-form-field floatPlaceholder="never">
-        <input mdInput #filter placeholder="Filter products by HSN Code/Product Number">
-    </md-form-field>
+    <mat-form-field floatPlaceholder="never">
+        <input matInput #filter placeholder="Filter products by HSN Code/Product Number">
+    </mat-form-field>
 </div>
 <div class="product-list-table-wrapper">
-    <md-table #table [dataSource]="dataSource">
+    <mat-table #table [dataSource]="dataSource">
         <ng-container cdkColumnDef="delete">
-            <md-header-cell *cdkHeaderCellDef></md-header-cell>
-            <md-cell *cdkCellDef="let row">
-                <md-icon (click)="deleteProduct(row)">delete</md-icon>
-            </md-cell>
+            <mat-header-cell *cdkHeaderCellDef></mat-header-cell>
+            <mat-cell *cdkCellDef="let row">
+                <mat-icon (click)="deleteProduct(row)">delete</mat-icon>
+            </mat-cell>
         </ng-container>
         <ng-container cdkColumnDef="edit">
-            <md-header-cell *cdkHeaderCellDef></md-header-cell>
-            <md-cell *cdkCellDef="let row">
-                <md-icon [routerLink]="['/catalog/product', row.productUuid]">edit</md-icon>
-            </md-cell>
+            <mat-header-cell *cdkHeaderCellDef></mat-header-cell>
+            <mat-cell *cdkCellDef="let row">
+                <mat-icon [routerLink]="['/catalog/product', row.productUuid]">edit</mat-icon>
+            </mat-cell>
         </ng-container>
         <ng-container cdkColumnDef="name">
-            <md-header-cell *cdkHeaderCellDef>Name</md-header-cell>
-            <md-cell *cdkCellDef="let row"> {{row.name}}</md-cell>
+            <mat-header-cell *cdkHeaderCellDef>Name</mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.name}}</mat-cell>
         </ng-container>
 
         <ng-container cdkColumnDef="quantityRequested">
-            <md-header-cell *cdkHeaderCellDef> Quantity Requested </md-header-cell>
-            <md-cell *cdkCellDef="let row"> {{row.quantityRequested}}
+            <mat-header-cell *cdkHeaderCellDef> Quantity Requested </mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.quantityRequested}}
                 <div class="suffix-container">
-                    <md-icon (click)="updateQuantity(row)">mode_edit</md-icon>
+                    <mat-icon (click)="updateQuantity(row)">mode_edit</mat-icon>
                 </div>
-            </md-cell>
+            </mat-cell>
         </ng-container>
 
         <ng-container cdkColumnDef="invoicedQuantity">
-            <md-header-cell *cdkHeaderCellDef> Invoiced Quantity </md-header-cell>
-            <md-cell *cdkCellDef="let row"> {{row.invoicedQuantity}}
+            <mat-header-cell *cdkHeaderCellDef> Invoiced Quantity </mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.invoicedQuantity}}
                 <div class="suffix-container">
-                    <md-icon (click)="updateQuantity(row)">mode_edit</md-icon>
+                    <mat-icon (click)="updateQuantity(row)">mode_edit</mat-icon>
                 </div>
-            </md-cell>
+            </mat-cell>
         </ng-container>
 
         <ng-container cdkColumnDef="hsnCode">
-            <md-header-cell *cdkHeaderCellDef> HSN Code </md-header-cell>
-            <md-cell *cdkCellDef="let row"> {{row.hsnCode}} </md-cell>
+            <mat-header-cell *cdkHeaderCellDef> HSN Code </mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.hsnCode}} </mat-cell>
         </ng-container>
 
         <ng-container cdkColumnDef="productNumber">
-            <md-header-cell *cdkHeaderCellDef>Product Number</md-header-cell>
-            <md-cell *cdkCellDef="let row"> {{row.productNumber}} </md-cell>
+            <mat-header-cell *cdkHeaderCellDef>Product Number</mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.productNumber}} </mat-cell>
         </ng-container>
 
         <ng-container cdkColumnDef="categoryName">
-            <md-header-cell *cdkHeaderCellDef>Category</md-header-cell>
-            <md-cell *cdkCellDef="let row"> {{row.categoryName}} </md-cell>
+            <mat-header-cell *cdkHeaderCellDef>Category</mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.categoryName}} </mat-cell>
         </ng-container>
 
         <ng-container cdkColumnDef="unitPrice">
-            <md-header-cell *cdkHeaderCellDef>Unit Price</md-header-cell>
-            <md-cell *cdkCellDef="let row"> {{row.unitPrice}} </md-cell>
+            <mat-header-cell *cdkHeaderCellDef>Unit Price</mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.unitPrice}} </mat-cell>
         </ng-container>
 
         <ng-container cdkColumnDef="onHandQuantity">
-            <md-header-cell *cdkHeaderCellDef>On Hand Quantity</md-header-cell>
-            <md-cell *cdkCellDef="let row"> {{row.onHandQuantity}}</md-cell>
+            <mat-header-cell *cdkHeaderCellDef>On Hand Quantity</mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.onHandQuantity}}</mat-cell>
         </ng-container>
 
         <ng-container cdkColumnDef="tax">
-            <md-header-cell *cdkHeaderCellDef>Tax</md-header-cell>
-            <md-cell *cdkCellDef="let row"> {{row.taxAmount}} </md-cell>
+            <mat-header-cell *cdkHeaderCellDef>Tax</mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.taxAmount}} </mat-cell>
         </ng-container>
 
         <ng-container cdkColumnDef="discount">
-            <md-header-cell *cdkHeaderCellDef>Discount</md-header-cell>
-            <md-cell *cdkCellDef="let row"> {{row.discount}}
+            <mat-header-cell *cdkHeaderCellDef>Discount</mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.discount}}
                 <div class="suffix-container">
-                    <md-icon (click)="updateDiscount(row)">mode_edit</md-icon>
+                    <mat-icon (click)="updateDiscount(row)">mode_edit</mat-icon>
                 </div>
-            </md-cell>
+            </mat-cell>
 
         </ng-container>
 
         <ng-container cdkColumnDef="itemTotal">
-            <md-header-cell *cdkHeaderCellDef>Item total</md-header-cell>
-            <md-cell *cdkCellDef="let row"> {{row.itemTotal}} </md-cell>
+            <mat-header-cell *cdkHeaderCellDef>Item total</mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.itemTotal}} </mat-cell>
         </ng-container>
 
-        <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
-        <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
-    </md-table>
+        <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *cdkRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
     <table *ngIf="isTotalsNeeded" class="total-table">
         <thead class="mat-header-row">
             <th class="mat-header-cell">Total Tax</th>
@@ -103,5 +103,5 @@
         </tbody>
     </table>
 </div>
-<md-paginator #paginator [ngClass]="{'hide' : !isPaginated}" [length]="pageUtil.totalCount" [pageIndex]="0" [pageSize]="pageUtil.pageSize" [pageSizeOptions]="[15, 20]" (page)="pageEvent = $event; onPaginateChange($event.pageIndex, $event.pageSize)">
-</md-paginator>
+<mat-paginator #paginator [ngClass]="{'hide' : !isPaginated}" [length]="pageUtil.totalCount" [pageIndex]="0" [pageSize]="pageUtil.pageSize" [pageSizeOptions]="[15, 20]" (page)="onPaginateChange($event.pageIndex, $event.pageSize)">
+</mat-paginator>

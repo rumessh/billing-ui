@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Order, OrderDataService } from '../order-data/order-data';
 import { Location } from '@angular/common';
-import { MdInputModule, MdButtonModule, MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../catalog/catalog-data/catalog-data';
 import { ProductListTable } from '../../catalog/product-list/product-list-table';
@@ -33,7 +33,7 @@ export class OrderDetail {
         private formBuilder: FormBuilder,
         private orderDataService: OrderDataService,
         private location: Location,
-        private snackbar: MdSnackBar,
+        private snackbar: MatSnackBar,
         route: ActivatedRoute,
         private authService: AuthService) {
         let orderUuid;

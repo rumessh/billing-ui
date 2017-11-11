@@ -1,10 +1,10 @@
 import {Component, ViewEncapsulation, ViewChild, OnInit, NgModule} from '@angular/core';
-import {MdSidenav, MdSidenavModule} from '@angular/material';
+import {MatSidenav} from '@angular/material';
 import {Router, RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {PageHeaderModule} from '../page-header/page-header';
 import {MenuItems} from '../menu-items/menu-items';
-
+import {BaseMaterialModule} from '../../app.material.module';
 
 const SMALL_WIDTH_BREAKPOINT = 840;
 
@@ -18,7 +18,7 @@ export class SideNav implements OnInit {
   constructor(public menuItems: MenuItems,
               private _router: Router) {}
 
-  @ViewChild(MdSidenav) sidenav: MdSidenav;
+  @ViewChild(MatSidenav) sidenav: MatSidenav;
 
   ngOnInit() {
     this._router.events.subscribe(() => {
@@ -34,7 +34,7 @@ export class SideNav implements OnInit {
 }
 
 @NgModule({
-  imports: [MdSidenavModule, RouterModule, CommonModule, PageHeaderModule],
+  imports: [BaseMaterialModule, RouterModule, CommonModule, PageHeaderModule],
   exports: [SideNav],
   declarations: [SideNav],
   providers: [MenuItems],

@@ -1,5 +1,4 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { MdInputModule, MdButtonModule } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Customer, CustomerDataService } from '../customer-data/customer-data';

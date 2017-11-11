@@ -1,44 +1,44 @@
 <div *ngIf="isFilterRequired" class="order-list-header">
-    <md-form-field floatPlaceholder="never">
-        <input mdInput #filter placeholder="Filter orders">
-    </md-form-field>
+    <mat-form-field floatPlaceholder="never">
+        <input matInput #filter placeholder="Filter orders">
+    </mat-form-field>
 </div>
 <div class="order-list-table-wrapper">
-    <md-table #table [dataSource]="dataSource">
+    <mat-table #table [dataSource]="dataSource">
         <ng-container cdkColumnDef="delete">
-            <md-header-cell *cdkHeaderCellDef></md-header-cell>
-            <md-cell *cdkCellDef="let row">
-                <md-icon (click)="deleteOrder($event, row)">delete</md-icon>
-            </md-cell>
+            <mat-header-cell *cdkHeaderCellDef></mat-header-cell>
+            <mat-cell *cdkCellDef="let row">
+                <mat-icon (click)="deleteOrder($event, row)">delete</mat-icon>
+            </mat-cell>
         </ng-container>
         <ng-container cdkColumnDef="orderNumber">
-            <md-header-cell *cdkHeaderCellDef>Order Number</md-header-cell>
-            <md-cell *cdkCellDef="let row"> <a [routerLink]="['/order', row.orderUuid]"> {{row.orderNumber}}</a></md-cell>
+            <mat-header-cell *cdkHeaderCellDef>Order Number</mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> <a [routerLink]="['/order', row.orderUuid]"> {{row.orderNumber}}</a></mat-cell>
         </ng-container>
 
         <ng-container cdkColumnDef="createdDate">
-            <md-header-cell *cdkHeaderCellDef>Created Date</md-header-cell>
-            <md-cell *cdkCellDef="let row"> {{row.createdDate}}</md-cell>
+            <mat-header-cell *cdkHeaderCellDef>Created Date</mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.createdDate}}</mat-cell>
         </ng-container>
 
         <ng-container cdkColumnDef="status">
-            <md-header-cell *cdkHeaderCellDef>Status</md-header-cell>
-            <md-cell *cdkCellDef="let row"> {{row.status}}</md-cell>
+            <mat-header-cell *cdkHeaderCellDef>Status</mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.status}}</mat-cell>
         </ng-container>
 
         <ng-container cdkColumnDef="salesPerson">
-            <md-header-cell *cdkHeaderCellDef>Sales Person</md-header-cell>
-            <md-cell *cdkCellDef="let row"> {{row.assignedUser}} </md-cell>
+            <mat-header-cell *cdkHeaderCellDef>Sales Person</mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.assignedUser}} </mat-cell>
         </ng-container>
 
         <ng-container cdkColumnDef="neededByDate">
-            <md-header-cell *cdkHeaderCellDef>Needed By Date</md-header-cell>
-            <md-cell *cdkCellDef="let row"> {{row.neededByDate}} </md-cell>
+            <mat-header-cell *cdkHeaderCellDef>Needed By Date</mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.neededByDate}} </mat-cell>
         </ng-container>
 
-        <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
-        <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
-    </md-table>
+        <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *cdkRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
 </div>
-<md-paginator #paginator [length]="pageUtil.totalCount" [pageIndex]="0" [pageSize]="pageUtil.pageSize" [pageSizeOptions]="[15, 20]" (page)="pageEvent = $event; onPaginateChange($event)">
-</md-paginator>
+<mat-paginator #paginator [length]="pageUtil.totalCount" [pageIndex]="0" [pageSize]="pageUtil.pageSize" [pageSizeOptions]="[15, 20]" (page)="pageEvent = $event; onPaginateChange($event)">
+</mat-paginator>

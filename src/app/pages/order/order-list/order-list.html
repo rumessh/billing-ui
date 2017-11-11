@@ -1,9 +1,9 @@
 <div class="order-list-container mat-elevation-z8">
-  <md-toolbar class="order-list-toolbar">
+  <mat-toolbar class="order-list-toolbar">
     <span>Order List</span>
     <span class="big-spacer"></span>
-    <button md-raised-button [routerLink]="['orders', 'create']">CREATE ORDER</button>
-  </md-toolbar>
+    <button mat-raised-button [routerLink]="['orders', 'create']">CREATE ORDER</button>
+  </mat-toolbar>
   <order-list-table [displayedColumns]="displayedColumns"
         [isSearched]="isSearched"
         [searchData]="orderList"

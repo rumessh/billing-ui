@@ -1,10 +1,11 @@
 import {Component, NgModule, OnInit} from '@angular/core';
-import { MdButtonModule, MdCardModule, MdToolbarModule } from '@angular/material';
+import { MatButtonModule, MatCardModule } from '@angular/material';
 import {RouterModule} from '@angular/router';
 import {PageUtil} from '../../shared/page-util/page-util';
 import {SideNavModule} from '../../shared/sidenav/sidenav';
 import {MenuItems} from '../../shared/menu-items/menu-items';
 import {CommonModule} from '@angular/common';
+import {BaseMaterialModule} from '../../app.material.module';
 
 @Component({
     selector: 'app-homepage',
@@ -22,7 +23,7 @@ export class Homepage implements OnInit {
 }
 
 @NgModule({
-  imports: [MdButtonModule, RouterModule, MdCardModule, SideNavModule, CommonModule, MdToolbarModule],
+  imports: [BaseMaterialModule, MatButtonModule, RouterModule, MatCardModule, SideNavModule, CommonModule],
   exports: [Homepage],
   declarations: [Homepage],
   providers: [MenuItems, PageUtil]

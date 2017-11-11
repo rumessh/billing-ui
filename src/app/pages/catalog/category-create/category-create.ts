@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Category, CatalogDataService} from '../catalog-data/catalog-data';
 import { Location } from '@angular/common';
-import {MdSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material';
 import {AuthService} from '../../../shared/auth-service/auth-service';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -19,7 +19,7 @@ export class CategoryCreate {
   constructor(private formBuilder: FormBuilder,
               private catalogDataService: CatalogDataService,
               private location: Location,
-              private snackbar: MdSnackBar,
+              private snackbar: MatSnackBar,
               private authService: AuthService) {   
       this.createCategoryForm = this.formBuilder.group( {
             name: [ '', Validators.required ]

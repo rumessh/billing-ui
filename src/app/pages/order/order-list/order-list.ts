@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {MdInputModule, MdButtonModule} from '@angular/material';
 import {OrderListTable} from './order-list-table';
 
 import {Order} from '../order-data/order-data';

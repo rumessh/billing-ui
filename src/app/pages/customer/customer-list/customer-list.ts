@@ -1,5 +1,5 @@
 import {Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef} from '@angular/core';
-import {MdPaginatorModule, MdInputModule, MdButtonModule, MdTableModule, MdPaginator, PageEvent } from '@angular/material';
+import {MatPaginator, PageEvent } from '@angular/material';
 import {DataSource} from '@angular/cdk/table';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
@@ -24,7 +24,7 @@ export class CustomerList {
   dataSource: CustomerDataSource | null;
   pageEvent: PageEvent;
 
-  @ViewChild(MdPaginator) paginator: MdPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild("filter") filter: ElementRef;
 
 
@@ -47,7 +47,7 @@ export class CustomerList {
 }
 
 export class CustomerDataSource extends DataSource<any> {
-  constructor(private _paginator: MdPaginator,
+  constructor(private _paginator: MatPaginator,
               private customerDataService: CustomerDataService) {
     super();
   }

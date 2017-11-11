@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Customer, CustomerDataService } from '../customer-data/customer-data';
 import { Location } from '@angular/common';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { AuthService } from '../../../shared/auth-service/auth-service';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -21,7 +21,7 @@ export class CustomerCreate {
   constructor(private formBuilder: FormBuilder,
     private customerDataService: CustomerDataService,
     private location: Location,
-    private snackbar: MdSnackBar,
+    private snackbar: MatSnackBar,
     private authService: AuthService) {
     this.createCustomerForm = this.formBuilder.group({
       name: ['', Validators.required],

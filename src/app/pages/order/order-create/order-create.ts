@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Order, OrderDataService } from '../order-data/order-data';
 import { Location } from '@angular/common';
-import { MdInputModule, MdButtonModule, MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Customer, CustomerDataService } from '../../customer/customer-data/customer-data';
 import { CustomerSearch } from '../../customer/customer-list/customer-search';
@@ -38,7 +38,7 @@ export class OrderCreate {
     private formBuilder: FormBuilder,
     private orderDataService: OrderDataService,
     private location: Location,
-    private snackbar: MdSnackBar,
+    private snackbar: MatSnackBar,
     route: ActivatedRoute,
     private customerDataService: CustomerDataService,
     private authService: AuthService,
